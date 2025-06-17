@@ -100,4 +100,23 @@
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
+
+  .bg-gradient-radial {
+    background: radial-gradient(circle, var(--tw-gradient-stops));
+  }
+}
+
+@layer utilities {
+  .animate-gold-shimmer {
+    animation: gold-shimmer 3s ease-in-out infinite;
+  }
+}
+
+@keyframes gold-shimmer {
+  0%, 100% {
+    filter: brightness(1) saturate(1);
+  }
+  50% {
+    filter: brightness(1.2) saturate(1.3);
+  }
 }

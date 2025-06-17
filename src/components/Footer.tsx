@@ -1,10 +1,45 @@
 
-import { Instagram, Twitter, Facebook, Mail, Phone, MapPin } from 'lucide-react';
+import { Instagram, Twitter, Facebook, Mail, Phone, MapPin, Truck, Shield, Clock } from 'lucide-react';
 
 const Footer = () => {
   return (
     <footer className="premium-glass gold-border border-b-0 mt-32">
       <div className="max-w-7xl mx-auto px-8 py-20">
+        {/* Delivery Information Banner */}
+        <div className="premium-glass gold-border rounded-2xl p-8 mb-16 text-center">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+            <div className="flex items-center space-x-4">
+              <div className="w-16 h-16 bg-luxury-gold/20 rounded-full flex items-center justify-center">
+                <Truck className="h-8 w-8 text-luxury-gold" />
+              </div>
+              <div className="text-left">
+                <h3 className="text-luxury-gold font-bold text-xl font-inter uppercase tracking-wider">All Over India Delivery</h3>
+                <p className="text-luxury-champagne/80 font-inter">Premium jerseys delivered nationwide</p>
+              </div>
+            </div>
+            
+            <div className="flex items-center space-x-4">
+              <div className="w-16 h-16 bg-luxury-gold/20 rounded-full flex items-center justify-center">
+                <Shield className="h-8 w-8 text-luxury-gold" />
+              </div>
+              <div className="text-left">
+                <h3 className="text-luxury-gold font-bold text-xl font-inter uppercase tracking-wider">Authentic Guarantee</h3>
+                <p className="text-luxury-champagne/80 font-inter">100% genuine products only</p>
+              </div>
+            </div>
+            
+            <div className="flex items-center space-x-4">
+              <div className="w-16 h-16 bg-luxury-gold/20 rounded-full flex items-center justify-center">
+                <Clock className="h-8 w-8 text-luxury-gold" />
+              </div>
+              <div className="text-left">
+                <h3 className="text-luxury-gold font-bold text-xl font-inter uppercase tracking-wider">Express Shipping</h3>
+                <p className="text-luxury-champagne/80 font-inter">Fast & secure delivery</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
@@ -50,7 +85,7 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-center space-x-3 text-luxury-champagne/70">
                 <Phone className="h-4 w-4" />
-                <span className="font-inter">+1 (555) 123-4567</span>
+                <span className="font-inter">+91 8129913205</span>
               </li>
               <li className="flex items-center space-x-3 text-luxury-champagne/70">
                 <Mail className="h-4 w-4" />
@@ -58,7 +93,7 @@ const Footer = () => {
               </li>
               <li className="flex items-start space-x-3 text-luxury-champagne/70">
                 <MapPin className="h-4 w-4 mt-1" />
-                <span className="font-inter">Beverly Hills, CA<br />Private Showroom</span>
+                <span className="font-inter">All Over India<br />Premium Delivery</span>
               </li>
             </ul>
           </div>
