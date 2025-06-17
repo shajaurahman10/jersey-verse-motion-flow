@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 
@@ -41,10 +40,10 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Elegant Jersey Display - Positioned around the page naturally */}
+      {/* Elegant Jersey Display - Better positioned and spaced */}
       <div className="absolute inset-0 z-10">
         {/* Arsenal Jersey - Top Left */}
-        <div className={`absolute top-20 left-20 w-48 h-56 ${animationStarted ? 'animate-luxury-entrance opacity-100' : 'opacity-0'}`}>
+        <div className={`absolute top-16 left-12 w-44 h-52 ${animationStarted ? 'animate-luxury-entrance opacity-100' : 'opacity-0'}`}>
           <img 
             src="/lovable-uploads/d25ea2ba-ee83-43da-a6eb-4b0172df12cc.png" 
             alt="Arsenal Jersey" 
@@ -53,7 +52,7 @@ const HeroSection = () => {
         </div>
 
         {/* Barcelona Jersey - Top Right */}
-        <div className={`absolute top-32 right-16 w-48 h-56 ${animationStarted ? 'animate-luxury-entrance-2 opacity-100' : 'opacity-0'}`}>
+        <div className={`absolute top-28 right-8 w-44 h-52 ${animationStarted ? 'animate-luxury-entrance-2 opacity-100' : 'opacity-0'}`}>
           <img 
             src="/lovable-uploads/ef5cbf57-55c9-4611-9955-cb2f0aafdfd6.png" 
             alt="Barcelona Jersey" 
@@ -62,7 +61,7 @@ const HeroSection = () => {
         </div>
 
         {/* Real Madrid Jersey - Bottom Right */}
-        <div className={`absolute bottom-24 right-24 w-48 h-56 ${animationStarted ? 'animate-luxury-entrance-3 opacity-100' : 'opacity-0'}`}>
+        <div className={`absolute bottom-20 right-16 w-44 h-52 ${animationStarted ? 'animate-luxury-entrance-3 opacity-100' : 'opacity-0'}`}>
           <img 
             src="/lovable-uploads/cb9a1097-7d7c-4ecc-b406-b512d4810795.png" 
             alt="Real Madrid Jersey" 

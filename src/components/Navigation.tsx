@@ -1,10 +1,12 @@
 
 import { useState, useEffect } from 'react';
 import { Menu, X, ShoppingBag, User } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +17,19 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const isActive = (path: string) => {
+    if (path === '/' && location.pathname === '/') return true;
+    if (path !== '/' && location.pathname.startsWith(path)) return true;
+    return false;
+  };
+
+  const linkClass = (path: string) => 
+    `transition-colors duration-300 font-inter font-medium tracking-wider uppercase text-sm ${
+      isActive(path) 
+        ? 'text-luxury-gold' 
+        : 'text-luxury-champagne hover:text-luxury-gold'
+    }`;
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
       scrolled ? 'premium-glass gold-border border-t-0' : 'bg-transparent'
@@ -23,21 +38,23 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <img 
-              src="/lovable-uploads/ecf96001-d27b-44ca-94f3-2d9122363c98.png" 
-              alt="JERSEYSTWR" 
-              className="h-10 w-auto filter brightness-0 invert animate-gold-shimmer"
-            />
+            <Link to="/">
+              <img 
+                src="/lovable-uploads/ecf96001-d27b-44ca-94f3-2d9122363c98.png" 
+                alt="JERSEYSTWR" 
+                className="h-10 w-auto filter brightness-0 invert animate-gold-shimmer"
+              />
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-12">
-              <a href="#home" className="text-luxury-champagne hover:text-luxury-gold transition-colors duration-300 font-inter font-medium tracking-wider uppercase text-sm">Home</a>
-              <a href="#collection" className="text-luxury-champagne hover:text-luxury-gold transition-colors duration-300 font-inter font-medium tracking-wider uppercase text-sm">Collection</a>
-              <a href="#bespoke" className="text-luxury-champagne hover:text-luxury-gold transition-colors duration-300 font-inter font-medium tracking-wider uppercase text-sm">Bespoke</a>
-              <a href="#about" className="text-luxury-champagne hover:text-luxury-gold transition-colors duration-300 font-inter font-medium tracking-wider uppercase text-sm">Heritage</a>
-              <a href="#contact" className="text-luxury-champagne hover:text-luxury-gold transition-colors duration-300 font-inter font-medium tracking-wider uppercase text-sm">Contact</a>
+              <Link to="/" className={linkClass('/')}>Home</Link>
+              <Link to="/collection" className={linkClass('/collection')}>Collection</Link>
+              <Link to="/bespoke" className={linkClass('/bespoke')}>Bespoke</Link>
+              <Link to="/heritage" className={linkClass('/heritage')}>Heritage</Link>
+              <Link to="/contact" className={linkClass('/contact')}>Contact</Link>
             </div>
           </div>
 
@@ -67,11 +84,11 @@ const Navigation = () => {
         {isOpen && (
           <div className="md:hidden premium-glass gold-border rounded-lg mt-4 mb-4">
             <div className="px-4 pt-4 pb-6 space-y-4">
-              <a href="#home" className="block px-4 py-3 text-luxury-champagne hover:text-luxury-gold transition-colors duration-300 font-inter font-medium tracking-wider uppercase text-sm">Home</a>
-              <a href="#collection" className="block px-4 py-3 text-luxury-champagne hover:text-luxury-gold transition-colors duration-300 font-inter font-medium tracking-wider uppercase text-sm">Collection</a>
-              <a href="#bespoke" className="block px-4 py-3 text-luxury-champagne hover:text-luxury-gold transition-colors duration-300 font-inter font-medium tracking-wider uppercase text-sm">Bespoke</a>
-              <a href="#about" className="block px-4 py-3 text-luxury-champagne hover:text-luxury-gold transition-colors duration-300 font-inter font-medium tracking-wider uppercase text-sm">Heritage</a>
-              <a href="#contact" className="block px-4 py-3 text-luxury-champagne hover:text-luxury-gold transition-colors duration-300 font-inter font-medium tracking-wider uppercase text-sm">Contact</a>
+              <Link to="/" className={`block px-4 py-3 ${linkClass('/')}`}>Home</Link>
+              <Link to="/collection" className={`block px-4 py-3 ${linkClass('/collection')}`}>Collection</Link>
+              <Link to="/bespoke" className={`block px-4 py-3 ${linkClass('/bespoke')}`}>Bespoke</Link>
+              <Link to="/heritage" className={`block px-4 py-3 ${linkClass('/heritage')}`}>Heritage</Link>
+              <Link to="/contact" className={`block px-4 py-3 ${linkClass('/contact')}`}>Contact</Link>
             </div>
           </div>
         )}
