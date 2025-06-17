@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -98,40 +97,40 @@ export default {
 				},
 				'luxury-entrance': {
 					'0%': {
-						transform: 'translateX(-100vw) translateY(-50vh) rotate(-45deg) scale(0.3)',
+						transform: 'translateX(-100vw) translateY(-50px) scale(0.5)',
 						opacity: '0'
 					},
-					'60%': {
-						opacity: '1'
+					'70%': {
+						opacity: '0.8'
 					},
 					'100%': {
-						transform: 'translateX(-150px) translateY(-50px) rotate(0deg) scale(1)',
+						transform: 'translateX(0) translateY(0) scale(1)',
 						opacity: '1'
 					}
 				},
 				'luxury-entrance-2': {
 					'0%': {
-						transform: 'translateX(100vw) translateY(-50vh) rotate(45deg) scale(0.3)',
+						transform: 'translateX(100vw) translateY(-50px) scale(0.5)',
 						opacity: '0'
 					},
-					'60%': {
-						opacity: '1'
+					'70%': {
+						opacity: '0.8'
 					},
 					'100%': {
-						transform: 'translateX(0px) translateY(-50px) rotate(0deg) scale(1)',
+						transform: 'translateX(0) translateY(0) scale(1)',
 						opacity: '1'
 					}
 				},
 				'luxury-entrance-3': {
 					'0%': {
-						transform: 'translateX(100vw) translateY(50vh) rotate(135deg) scale(0.3)',
+						transform: 'translateY(100vh) translateX(50px) scale(0.5)',
 						opacity: '0'
 					},
-					'60%': {
-						opacity: '1'
+					'70%': {
+						opacity: '0.8'
 					},
 					'100%': {
-						transform: 'translateX(150px) translateY(-50px) rotate(0deg) scale(1)',
+						transform: 'translateY(0) translateX(0) scale(1)',
 						opacity: '1'
 					}
 				},
@@ -171,9 +170,9 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'luxury-entrance': 'luxury-entrance 3s cubic-bezier(0.23, 1, 0.32, 1) forwards',
-				'luxury-entrance-2': 'luxury-entrance-2 3.5s cubic-bezier(0.23, 1, 0.32, 1) forwards',
-				'luxury-entrance-3': 'luxury-entrance-3 4s cubic-bezier(0.23, 1, 0.32, 1) forwards',
+				'luxury-entrance': 'luxury-entrance 2s cubic-bezier(0.23, 1, 0.32, 1) forwards',
+				'luxury-entrance-2': 'luxury-entrance-2 2.5s cubic-bezier(0.23, 1, 0.32, 1) forwards',
+				'luxury-entrance-3': 'luxury-entrance-3 3s cubic-bezier(0.23, 1, 0.32, 1) forwards',
 				'gold-shimmer': 'gold-shimmer 3s ease-in-out infinite',
 				'subtle-float': 'subtle-float 6s ease-in-out infinite',
 				'particle-drift': 'particle-drift 20s linear infinite',

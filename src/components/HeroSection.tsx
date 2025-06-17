@@ -23,7 +23,7 @@ const HeroSection = () => {
 
       {/* Hero Content */}
       <div className="text-center z-20 max-w-6xl mx-auto px-8">
-        <h1 className="font-sedgwick text-7xl md:text-9xl lg:text-[12rem] font-bold luxury-text mb-12 animate-gold-shimmer tracking-wider">
+        <h1 className="font-orbitron text-6xl md:text-8xl lg:text-[10rem] font-black luxury-text mb-12 animate-gold-shimmer tracking-[0.05em] uppercase">
           JERSEYSTWR
         </h1>
         
@@ -41,34 +41,32 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Elegant Jersey Display */}
+      {/* Elegant Jersey Display - Positioned around the page naturally */}
       <div className="absolute inset-0 z-10">
-        {/* Arsenal Jersey */}
-        <div className={`absolute top-1/2 left-1/2 w-56 h-64 ${animationStarted ? 'animate-luxury-entrance' : 'opacity-0'}`}>
+        {/* Arsenal Jersey - Top Left */}
+        <div className={`absolute top-20 left-20 w-48 h-56 ${animationStarted ? 'animate-luxury-entrance opacity-100' : 'opacity-0'}`}>
           <img 
             src="/lovable-uploads/d25ea2ba-ee83-43da-a6eb-4b0172df12cc.png" 
             alt="Arsenal Jersey" 
-            className="w-full h-full object-contain hover:scale-110 transition-transform duration-700 animate-subtle-float drop-shadow-2xl"
+            className="w-full h-full object-contain hover:scale-110 transition-transform duration-700 drop-shadow-2xl"
           />
         </div>
 
-        {/* Barcelona Jersey */}
-        <div className={`absolute top-1/2 left-1/2 w-56 h-64 ${animationStarted ? 'animate-luxury-entrance-2' : 'opacity-0'}`}>
+        {/* Barcelona Jersey - Top Right */}
+        <div className={`absolute top-32 right-16 w-48 h-56 ${animationStarted ? 'animate-luxury-entrance-2 opacity-100' : 'opacity-0'}`}>
           <img 
             src="/lovable-uploads/ef5cbf57-55c9-4611-9955-cb2f0aafdfd6.png" 
             alt="Barcelona Jersey" 
-            className="w-full h-full object-contain hover:scale-110 transition-transform duration-700 animate-subtle-float drop-shadow-2xl"
-            style={{ animationDelay: '2s' }}
+            className="w-full h-full object-contain hover:scale-110 transition-transform duration-700 drop-shadow-2xl"
           />
         </div>
 
-        {/* Real Madrid Jersey */}
-        <div className={`absolute top-1/2 left-1/2 w-56 h-64 ${animationStarted ? 'animate-luxury-entrance-3' : 'opacity-0'}`}>
+        {/* Real Madrid Jersey - Bottom Right */}
+        <div className={`absolute bottom-24 right-24 w-48 h-56 ${animationStarted ? 'animate-luxury-entrance-3 opacity-100' : 'opacity-0'}`}>
           <img 
             src="/lovable-uploads/cb9a1097-7d7c-4ecc-b406-b512d4810795.png" 
             alt="Real Madrid Jersey" 
-            className="w-full h-full object-contain hover:scale-110 transition-transform duration-700 animate-subtle-float drop-shadow-2xl"
-            style={{ animationDelay: '4s' }}
+            className="w-full h-full object-contain hover:scale-110 transition-transform duration-700 drop-shadow-2xl"
           />
         </div>
       </div>
