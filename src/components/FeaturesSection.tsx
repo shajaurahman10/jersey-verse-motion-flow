@@ -1,39 +1,39 @@
 
-import { Shield, Zap, Star, Truck } from 'lucide-react';
+import { Crown, Shield, Truck, Clock } from 'lucide-react';
 
 const FeaturesSection = () => {
   const features = [
     {
+      icon: Crown,
+      title: "EXCLUSIVE ACCESS",
+      description: "Limited edition jerseys and exclusive collections available only to our discerning clientele"
+    },
+    {
       icon: Shield,
-      title: "AUTHENTIC JERSEYS",
-      description: "100% authentic jerseys from official suppliers with verification guarantee"
+      title: "AUTHENTICITY GUARANTEED",
+      description: "Each jersey comes with certificate of authenticity and lifetime guarantee of genuineness"
     },
     {
-      icon: Zap,
-      title: "LIGHTNING DELIVERY",
-      description: "Express shipping worldwide with 24-48 hour delivery in major cities"
-    },
-    {
-      icon: Star,
-      title: "PREMIUM QUALITY",
-      description: "High-grade materials and perfect fit guaranteed for ultimate comfort"
+      icon: Clock,
+      title: "CONCIERGE SERVICE",
+      description: "Personal shopping assistance and 24/7 premium customer support for your convenience"
     },
     {
       icon: Truck,
-      title: "FREE SHIPPING",
-      description: "Free worldwide shipping on orders above $100 with package tracking"
+      title: "WHITE GLOVE DELIVERY",
+      description: "Complimentary worldwide express shipping with luxury packaging and tracking"
     }
   ];
 
   return (
-    <section className="py-20 relative">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-bold font-sedgwick text-white mb-4 animate-glow-pulse">
-            WHY CHOOSE US
+    <section className="py-32 relative">
+      <div className="max-w-7xl mx-auto px-8">
+        <div className="text-center mb-20">
+          <h2 className="text-5xl md:text-7xl font-bold font-sedgwick luxury-text mb-8 animate-gold-shimmer">
+            THE JERSEYSTWR EXPERIENCE
           </h2>
-          <p className="text-xl text-gray-300 font-orbitron">
-            ELEVATE YOUR GAME WITH PREMIUM JERSEYS
+          <p className="text-xl text-luxury-champagne/80 font-inter font-light tracking-[0.15em] uppercase max-w-3xl mx-auto">
+            Where craftsmanship meets passion, and every jersey tells a story of excellence
           </p>
         </div>
 
@@ -41,15 +41,15 @@ const FeaturesSection = () => {
           {features.map((feature, index) => (
             <div 
               key={index}
-              className="bg-card/50 backdrop-blur-lg rounded-lg p-8 text-center hover:scale-105 transition-all duration-300 neon-border group hover:futuristic-glow"
+              className="premium-glass rounded-xl p-8 text-center hover:scale-105 transition-all duration-700 gold-border group hover:luxury-glow"
             >
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-neon-blue to-neon-purple rounded-full mb-6 group-hover:animate-pulse">
-                <feature.icon className="h-8 w-8 text-black" />
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-luxury-gold to-luxury-champagne rounded-full mb-8 group-hover:animate-pulse">
+                <feature.icon className="h-10 w-10 text-black" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-4 font-orbitron">
+              <h3 className="text-xl font-bold text-luxury-champagne mb-6 font-inter tracking-wider uppercase">
                 {feature.title}
               </h3>
-              <p className="text-gray-300">
+              <p className="text-luxury-champagne/70 font-inter leading-relaxed">
                 {feature.description}
               </p>
             </div>

@@ -12,9 +12,9 @@ const ParticleBackground = () => {
       const particle = document.createElement('div');
       particle.className = 'particle';
       particle.style.left = Math.random() * 100 + '%';
-      particle.style.animationDelay = Math.random() * 15 + 's';
-      particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-      particle.style.animation = `particle-float ${15 + Math.random() * 10}s linear infinite`;
+      particle.style.animationDelay = Math.random() * 20 + 's';
+      particle.style.animationDuration = (20 + Math.random() * 15) + 's';
+      particle.style.animation = `particle-drift ${20 + Math.random() * 15}s linear infinite`;
       
       container.appendChild(particle);
 
@@ -22,14 +22,14 @@ const ParticleBackground = () => {
         if (container.contains(particle)) {
           container.removeChild(particle);
         }
-      }, 25000);
+      }, 35000);
     };
 
-    const interval = setInterval(createParticle, 500);
+    const interval = setInterval(createParticle, 1500);
     
     // Create initial particles
-    for (let i = 0; i < 20; i++) {
-      setTimeout(createParticle, i * 100);
+    for (let i = 0; i < 8; i++) {
+      setTimeout(createParticle, i * 200);
     }
 
     return () => {

@@ -68,10 +68,10 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				neon: {
-					blue: '#00ffff',
-					purple: '#8a2be2',
-					pink: '#ff1493',
+				luxury: {
+					gold: '#FFD700',
+					champagne: '#F7E7CE',
+					platinum: '#E5E4E2',
 				}
 			},
 			borderRadius: {
@@ -96,74 +96,74 @@ export default {
 						height: '0'
 					}
 				},
-				'fly-in-1': {
+				'luxury-entrance': {
 					'0%': {
-						transform: 'translate(-200vw, -200vh) rotate(-180deg) scale(0.5)',
+						transform: 'translateX(-100vw) translateY(-50vh) rotate(-45deg) scale(0.3)',
 						opacity: '0'
 					},
-					'70%': {
+					'60%': {
 						opacity: '1'
 					},
 					'100%': {
-						transform: 'translate(-120px, -50px) rotate(0deg) scale(1)',
+						transform: 'translateX(-150px) translateY(-50px) rotate(0deg) scale(1)',
 						opacity: '1'
 					}
 				},
-				'fly-in-2': {
+				'luxury-entrance-2': {
 					'0%': {
-						transform: 'translate(200vw, -200vh) rotate(180deg) scale(0.5)',
+						transform: 'translateX(100vw) translateY(-50vh) rotate(45deg) scale(0.3)',
 						opacity: '0'
 					},
-					'70%': {
+					'60%': {
 						opacity: '1'
 					},
 					'100%': {
-						transform: 'translate(0px, -50px) rotate(0deg) scale(1)',
+						transform: 'translateX(0px) translateY(-50px) rotate(0deg) scale(1)',
 						opacity: '1'
 					}
 				},
-				'fly-in-3': {
+				'luxury-entrance-3': {
 					'0%': {
-						transform: 'translate(200vw, 200vh) rotate(180deg) scale(0.5)',
+						transform: 'translateX(100vw) translateY(50vh) rotate(135deg) scale(0.3)',
 						opacity: '0'
 					},
-					'70%': {
+					'60%': {
 						opacity: '1'
 					},
 					'100%': {
-						transform: 'translate(120px, -50px) rotate(0deg) scale(1)',
+						transform: 'translateX(150px) translateY(-50px) rotate(0deg) scale(1)',
 						opacity: '1'
 					}
 				},
-				'glow-pulse': {
+				'gold-shimmer': {
 					'0%, 100%': {
-						textShadow: '0 0 20px #00ffff, 0 0 30px #00ffff, 0 0 40px #00ffff'
+						textShadow: '0 0 40px rgba(255, 215, 0, 0.4), 0 0 80px rgba(255, 215, 0, 0.2)'
 					},
 					'50%': {
-						textShadow: '0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff, 0 0 40px #00ffff, 0 0 50px #00ffff'
+						textShadow: '0 0 60px rgba(255, 215, 0, 0.6), 0 0 120px rgba(255, 215, 0, 0.3), 0 0 160px rgba(255, 215, 0, 0.1)'
 					}
 				},
-				'float': {
+				'subtle-float': {
 					'0%, 100%': {
 						transform: 'translateY(0px)'
 					},
 					'50%': {
-						transform: 'translateY(-10px)'
+						transform: 'translateY(-5px)'
 					}
 				},
-				'particle-float': {
+				'particle-drift': {
 					'0%': {
-						transform: 'translateY(100vh) rotate(0deg)',
+						transform: 'translateY(100vh) translateX(0px)',
 						opacity: '0'
 					},
 					'10%': {
-						opacity: '1'
+						opacity: '0.6'
 					},
 					'90%': {
-						opacity: '1'
+						opacity: '0.6'
 					},
 					'100%': {
-						transform: 'translateY(-100vh) rotate(360deg)',
+						transform: 'translateY(-100vh) translateX(50px)',
 						opacity: '0'
 					}
 				}
@@ -171,12 +171,12 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'fly-in-1': 'fly-in-1 2s ease-out forwards',
-				'fly-in-2': 'fly-in-2 2.5s ease-out forwards',
-				'fly-in-3': 'fly-in-3 3s ease-out forwards',
-				'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
-				'float': 'float 3s ease-in-out infinite',
-				'particle-float': 'particle-float 15s linear infinite',
+				'luxury-entrance': 'luxury-entrance 3s cubic-bezier(0.23, 1, 0.32, 1) forwards',
+				'luxury-entrance-2': 'luxury-entrance-2 3.5s cubic-bezier(0.23, 1, 0.32, 1) forwards',
+				'luxury-entrance-3': 'luxury-entrance-3 4s cubic-bezier(0.23, 1, 0.32, 1) forwards',
+				'gold-shimmer': 'gold-shimmer 3s ease-in-out infinite',
+				'subtle-float': 'subtle-float 6s ease-in-out infinite',
+				'particle-drift': 'particle-drift 20s linear infinite',
 			}
 		}
 	},
