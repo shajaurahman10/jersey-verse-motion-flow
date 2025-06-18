@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(2); // Start with middle jersey (index 2)
@@ -69,7 +70,7 @@ const HeroSection = () => {
             return (
               <div
                 key={jersey.id}
-                className={`absolute transition-all duration-1000 ease-out ${
+                className={`absolute transition-all duration-700 ease-in-out ${
                   position === 'center'
                     ? 'z-30 scale-100 opacity-100 transform translate-x-0'
                     : position === 'left'
@@ -77,7 +78,7 @@ const HeroSection = () => {
                     : 'z-20 scale-75 opacity-50 transform translate-x-48'
                 }`}
                 style={{
-                  transitionTimingFunction: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                  transitionTimingFunction: 'cubic-bezier(0.23, 1, 0.32, 1)'
                 }}
               >
                 {/* Spotlight effect for center jersey */}
@@ -89,7 +90,7 @@ const HeroSection = () => {
                   <img
                     src={jersey.image}
                     alt={jersey.name}
-                    className="w-full h-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 
@@ -108,14 +109,14 @@ const HeroSection = () => {
           {/* Navigation Arrows */}
           <button
             onClick={prevJersey}
-            className="absolute left-8 z-40 w-12 h-12 bg-luxury-gold/20 hover:bg-luxury-gold/30 rounded-full flex items-center justify-center transition-all duration-500 backdrop-blur-sm border border-luxury-gold/30 hover:scale-110"
+            className="absolute left-8 z-40 w-12 h-12 bg-luxury-gold/20 hover:bg-luxury-gold/30 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border border-luxury-gold/30 hover:scale-110"
           >
             <ChevronLeft className="w-6 h-6 text-luxury-gold" />
           </button>
           
           <button
             onClick={nextJersey}
-            className="absolute right-8 z-40 w-12 h-12 bg-luxury-gold/20 hover:bg-luxury-gold/30 rounded-full flex items-center justify-center transition-all duration-500 backdrop-blur-sm border border-luxury-gold/30 hover:scale-110"
+            className="absolute right-8 z-40 w-12 h-12 bg-luxury-gold/20 hover:bg-luxury-gold/30 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border border-luxury-gold/30 hover:scale-110"
           >
             <ChevronRight className="w-6 h-6 text-luxury-gold" />
           </button>
@@ -128,12 +129,18 @@ const HeroSection = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <button className="bg-gradient-to-r from-luxury-gold to-luxury-champagne text-black px-12 py-5 rounded-lg font-semibold font-inter tracking-wider uppercase hover:scale-105 transition-all duration-500 luxury-glow text-lg">
+            <Link 
+              to="/collection"
+              className="bg-gradient-to-r from-luxury-gold to-luxury-champagne text-black px-12 py-5 rounded-lg font-semibold font-inter tracking-wider uppercase hover:scale-105 transition-all duration-500 luxury-glow text-lg"
+            >
               View Collection
-            </button>
-            <button className="gold-border text-luxury-gold px-12 py-5 rounded-lg font-semibold font-inter tracking-wider uppercase hover:bg-luxury-gold/10 transition-all duration-500 text-lg">
+            </Link>
+            <Link 
+              to="/contact"
+              className="gold-border text-luxury-gold px-12 py-5 rounded-lg font-semibold font-inter tracking-wider uppercase hover:bg-luxury-gold/10 transition-all duration-500 text-lg"
+            >
               Contact Us
-            </button>
+            </Link>
           </div>
         </div>
       </div>
