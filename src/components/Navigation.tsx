@@ -52,7 +52,6 @@ const Navigation = () => {
             <div className="ml-10 flex items-baseline space-x-12">
               <Link to="/" className={linkClass('/')}>Home</Link>
               <Link to="/collection" className={linkClass('/collection')}>Collection</Link>
-              <Link to="/bespoke" className={linkClass('/bespoke')}>Bespoke</Link>
               <Link to="/heritage" className={linkClass('/heritage')}>Heritage</Link>
               <Link to="/contact" className={linkClass('/contact')}>Contact</Link>
             </div>
@@ -86,7 +85,6 @@ const Navigation = () => {
             <div className="px-4 pt-4 pb-6 space-y-4">
               <Link to="/" className={`block px-4 py-3 ${linkClass('/')}`}>Home</Link>
               <Link to="/collection" className={`block px-4 py-3 ${linkClass('/collection')}`}>Collection</Link>
-              <Link to="/bespoke" className={`block px-4 py-3 ${linkClass('/bespoke')}`}>Bespoke</Link>
               <Link to="/heritage" className={`block px-4 py-3 ${linkClass('/heritage')}`}>Heritage</Link>
               <Link to="/contact" className={`block px-4 py-3 ${linkClass('/contact')}`}>Contact</Link>
             </div>

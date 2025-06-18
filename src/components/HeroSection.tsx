@@ -69,13 +69,16 @@ const HeroSection = () => {
             return (
               <div
                 key={jersey.id}
-                className={`absolute transition-all duration-700 ease-in-out ${
+                className={`absolute transition-all duration-1000 ease-out ${
                   position === 'center'
                     ? 'z-30 scale-100 opacity-100 transform translate-x-0'
                     : position === 'left'
-                    ? 'z-20 scale-75 opacity-60 transform -translate-x-40'
-                    : 'z-20 scale-75 opacity-60 transform translate-x-40'
+                    ? 'z-20 scale-75 opacity-50 transform -translate-x-48'
+                    : 'z-20 scale-75 opacity-50 transform translate-x-48'
                 }`}
+                style={{
+                  transitionTimingFunction: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                }}
               >
                 {/* Spotlight effect for center jersey */}
                 {position === 'center' && (
@@ -86,7 +89,7 @@ const HeroSection = () => {
                   <img
                     src={jersey.image}
                     alt={jersey.name}
-                    className="w-full h-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-700"
                   />
                 </div>
                 
@@ -105,14 +108,14 @@ const HeroSection = () => {
           {/* Navigation Arrows */}
           <button
             onClick={prevJersey}
-            className="absolute left-8 z-40 w-12 h-12 bg-luxury-gold/20 hover:bg-luxury-gold/30 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border border-luxury-gold/30"
+            className="absolute left-8 z-40 w-12 h-12 bg-luxury-gold/20 hover:bg-luxury-gold/30 rounded-full flex items-center justify-center transition-all duration-500 backdrop-blur-sm border border-luxury-gold/30 hover:scale-110"
           >
             <ChevronLeft className="w-6 h-6 text-luxury-gold" />
           </button>
           
           <button
             onClick={nextJersey}
-            className="absolute right-8 z-40 w-12 h-12 bg-luxury-gold/20 hover:bg-luxury-gold/30 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border border-luxury-gold/30"
+            className="absolute right-8 z-40 w-12 h-12 bg-luxury-gold/20 hover:bg-luxury-gold/30 rounded-full flex items-center justify-center transition-all duration-500 backdrop-blur-sm border border-luxury-gold/30 hover:scale-110"
           >
             <ChevronRight className="w-6 h-6 text-luxury-gold" />
           </button>
@@ -129,7 +132,7 @@ const HeroSection = () => {
               View Collection
             </button>
             <button className="gold-border text-luxury-gold px-12 py-5 rounded-lg font-semibold font-inter tracking-wider uppercase hover:bg-luxury-gold/10 transition-all duration-500 text-lg">
-              Private Consultation
+              Contact Us
             </button>
           </div>
         </div>
