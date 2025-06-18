@@ -36,6 +36,7 @@ const Collection = () => {
       }
       
       console.log('Products fetched:', data);
+      console.log('Number of products:', data?.length || 0);
       return data;
     },
   });
@@ -70,6 +71,9 @@ const Collection = () => {
               <p className="text-luxury-champagne/80 text-lg font-inter leading-relaxed">
                 There was an error loading the jersey collection. Please try again later.
               </p>
+              <p className="text-luxury-champagne/60 text-sm mt-4 font-inter">
+                Error: {error.message}
+              </p>
             </div>
           </div>
         </section>
@@ -96,15 +100,22 @@ const Collection = () => {
           
           {/* Product Grid */}
           {products && products.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {products.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
+            <>
+              <div className="text-center mb-8">
+                <p className="text-luxury-champagne/80 text-lg font-inter">
+                  Showing {products.length} premium jerseys
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {products.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            </>
           ) : (
             <div className="text-center">
               <div className="premium-glass gold-border rounded-2xl p-8">
-                <h2 className="text-3xl font-bold text-luxury-gold mb-4 font-inter">No Products Available</h2>
+                <h2 className="text-3xl font-bold text-luxury-gold mb-4 font-inter">No Products Found</h2>
                 <p className="text-luxury-champagne/80 text-lg font-inter leading-relaxed">
                   Our premium jersey collection is being updated. Please check back soon!
                 </p>
