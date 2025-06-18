@@ -17,7 +17,7 @@ const Contact = () => {
               Contact
             </h1>
             <p className="text-2xl text-luxury-champagne/90 mb-12 font-inter font-light tracking-[0.2em] uppercase">
-              Connect With Our Concierge
+              Connect With Our Team
             </p>
           </div>
           
@@ -25,19 +25,19 @@ const Contact = () => {
             <div className="premium-glass rounded-xl p-8 text-center gold-border">
               <Phone className="h-12 w-12 text-luxury-gold mx-auto mb-4" />
               <h3 className="text-xl font-bold text-luxury-champagne mb-4 font-inter">Phone</h3>
-              <p className="text-luxury-champagne/80 font-inter">+1 (555) 123-4567</p>
+              <p className="text-luxury-champagne/80 font-inter">+91 8129913205</p>
             </div>
             
             <div className="premium-glass rounded-xl p-8 text-center gold-border">
               <Mail className="h-12 w-12 text-luxury-gold mx-auto mb-4" />
               <h3 className="text-xl font-bold text-luxury-champagne mb-4 font-inter">Email</h3>
-              <p className="text-luxury-champagne/80 font-inter">concierge@jerseystwr.com</p>
+              <p className="text-luxury-champagne/80 font-inter">jerseystwr@gmail.com</p>
             </div>
             
             <div className="premium-glass rounded-xl p-8 text-center gold-border">
               <MapPin className="h-12 w-12 text-luxury-gold mx-auto mb-4" />
               <h3 className="text-xl font-bold text-luxury-champagne mb-4 font-inter">Location</h3>
-              <p className="text-luxury-champagne/80 font-inter">Beverly Hills, CA<br />Private Showroom</p>
+              <p className="text-luxury-champagne/80 font-inter">Kerala, India<br />Premium Delivery</p>
             </div>
           </div>
         </div>

@@ -43,11 +43,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
-            <img 
-              src="/lovable-uploads/ecf96001-d27b-44ca-94f3-2d9122363c98.png" 
-              alt="JERSEYSTWR" 
-              className="h-12 w-auto filter brightness-0 invert mb-8"
-            />
+            <div className="spotlight-logo mb-8 w-fit">
+              <h2 className="font-orbitron text-4xl font-black luxury-text uppercase tracking-wider">
+                JERSEYSTWR
+              </h2>
+            </div>
             <p className="text-luxury-champagne/80 mb-8 max-w-md font-inter leading-relaxed">
               Curating the world's finest football jerseys for those who appreciate excellence, 
               authenticity, and the artistry of the beautiful game.
@@ -73,9 +73,9 @@ const Footer = () => {
             <h3 className="text-luxury-gold font-bold mb-6 font-inter tracking-wider uppercase">Services</h3>
             <ul className="space-y-4">
               <li><a href="#" className="text-luxury-champagne/70 hover:text-luxury-gold transition-colors duration-300 font-inter">Premium Collection</a></li>
-              <li><a href="#" className="text-luxury-champagne/70 hover:text-luxury-gold transition-colors duration-300 font-inter">Bespoke Orders</a></li>
+              <li><a href="#" className="text-luxury-champagne/70 hover:text-luxury-gold transition-colors duration-300 font-inter">Custom Orders</a></li>
               <li><a href="#" className="text-luxury-champagne/70 hover:text-luxury-gold transition-colors duration-300 font-inter">Authentication</a></li>
-              <li><a href="#" className="text-luxury-champagne/70 hover:text-luxury-gold transition-colors duration-300 font-inter">Concierge Service</a></li>
+              <li><a href="#" className="text-luxury-champagne/70 hover:text-luxury-gold transition-colors duration-300 font-inter">Express Delivery</a></li>
             </ul>
           </div>
 
@@ -89,11 +89,11 @@ const Footer = () => {
               </li>
               <li className="flex items-center space-x-3 text-luxury-champagne/70">
                 <Mail className="h-4 w-4" />
-                <span className="font-inter">concierge@jerseystwr.com</span>
+                <span className="font-inter">jerseystwr@gmail.com</span>
               </li>
               <li className="flex items-start space-x-3 text-luxury-champagne/70">
                 <MapPin className="h-4 w-4 mt-1" />
-                <span className="font-inter">All Over India<br />Premium Delivery</span>
+                <span className="font-inter">Kerala, India<br />Premium Delivery</span>
               </li>
             </ul>
           </div>

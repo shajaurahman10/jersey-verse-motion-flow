@@ -6,6 +6,7 @@ import ParticleBackground from '@/components/ParticleBackground';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import ProductCard from '@/components/ProductCard';
+import HotDealsSection from '@/components/HotDealsSection';
 import { Loader2 } from 'lucide-react';
 
 const Collection = () => {
@@ -71,9 +72,6 @@ const Collection = () => {
               <p className="text-luxury-champagne/80 text-lg font-inter leading-relaxed">
                 There was an error loading the jersey collection. Please try again later.
               </p>
-              <p className="text-luxury-champagne/60 text-sm mt-4 font-inter">
-                Error: {error.message}
-              </p>
             </div>
           </div>
         </section>
@@ -97,6 +95,9 @@ const Collection = () => {
               Premium Football Jerseys
             </p>
           </div>
+
+          {/* Hot Deals Section */}
+          <HotDealsSection />
           
           {/* Product Grid */}
           {products && products.length > 0 ? (

@@ -61,14 +61,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
               className="w-full h-80 object-contain bg-gradient-to-b from-transparent to-black/10"
             />
           ) : (
-            <div className="w-full h-80 bg-gradient-to-b from-luxury-gold/10 to-black/20 flex items-center justify-center relative">
-              <div className="text-center">
-                <div className="w-24 h-24 mx-auto mb-4 bg-luxury-gold/20 rounded-full flex items-center justify-center">
-                  <ShoppingCart className="w-12 h-12 text-luxury-gold" />
-                </div>
-                <p className="text-luxury-champagne font-inter text-lg font-semibold">{product.name}</p>
-                <p className="text-luxury-champagne/70 font-inter text-sm mt-2">Premium Jersey</p>
-              </div>
+            <div className="w-full h-80 bg-gradient-to-b from-luxury-gold/5 to-black/10 flex items-center justify-center border-2 border-dashed border-luxury-gold/30 rounded-lg">
+              <p className="text-luxury-champagne/50 font-inter text-sm">Image will be uploaded soon</p>
             </div>
           )}
           
