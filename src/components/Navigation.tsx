@@ -32,12 +32,11 @@ const Navigation = () => {
               onClick={scrollToTop}
               className="flex items-center space-x-2 group"
             >
-              <div className="w-12 h-12 bg-gradient-to-br from-luxury-gold to-luxury-champagne rounded-lg flex items-center justify-center font-orbitron font-black text-black text-xl group-hover:scale-110 transition-transform duration-300">
-                J90
-              </div>
-              <span className="font-orbitron text-2xl font-black luxury-text hidden sm:block">
-                J90
-              </span>
+              <img 
+                src="/lovable-uploads/ccff9549-08a2-46a9-95da-497da6a0fb4c.png" 
+                alt="J90 Logo" 
+                className="w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-300"
+              />
             </Link>
 
             {/* Desktop Navigation */}

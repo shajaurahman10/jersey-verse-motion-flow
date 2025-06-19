@@ -13,11 +13,6 @@ const HeroSection = () => {
       image: "/lovable-uploads/cb9a1097-7d7c-4ecc-b406-b512d4810795.png"
     },
     {
-      id: 2,
-      name: "Arsenal",
-      image: "/lovable-uploads/20dcd5e2-e9e2-4b3e-92b6-653bf0810bf9.png"
-    },
-    {
       id: 3,
       name: "Argentina",
       image: "/lovable-uploads/a4fb7c1a-b5a8-48e0-a989-27e953aaab7a.png"
@@ -33,18 +28,8 @@ const HeroSection = () => {
       image: "/lovable-uploads/ef5cbf57-55c9-4611-9955-cb2f0aafdfd6.png"
     },
     {
-      id: 6,
-      name: "Manchester United",
-      image: "/lovable-uploads/f78ac3f9-cdcc-4b18-9fde-4c98d4925074.png"
-    },
-    {
-      id: 7,
-      name: "Arsenal Away",
-      image: "/lovable-uploads/b37476fc-3252-42b8-8a6a-23beb72e6a1d.png"
-    },
-    {
       id: 8,
-      name: "Manchester United Retro",
+      name: "Manchester United Classic",
       image: "/lovable-uploads/f7cd6e41-397e-49d2-8879-470e0004ff7a.png"
     },
     {
@@ -82,9 +67,22 @@ const HeroSection = () => {
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-luxury-champagne/3 rounded-full blur-3xl"></div>
       </div>
 
-      {/* Jersey Carousel */}
-      <div className="relative z-20 w-full max-w-6xl mx-auto px-8">
-        {/* Carousel Container */}
+      {/* Main Content */}
+      <div className="relative z-20 w-full max-w-6xl mx-auto px-8 text-center">
+        {/* Brand Title */}
+        <div className="mb-16">
+          <h1 className="font-orbitron text-8xl md:text-9xl font-black luxury-text mb-8 animate-gold-shimmer tracking-[0.05em] uppercase">
+            J90
+          </h1>
+          <p className="text-3xl md:text-4xl text-luxury-champagne/90 mb-12 font-inter font-light tracking-[0.2em] uppercase">
+            The Premium Jersey Experience
+          </p>
+          <p className="text-xl text-luxury-champagne/80 font-inter font-light tracking-wider">
+            Where Craftsmanship Meets Passion, And Every Jersey Tells A Story Of Excellence
+          </p>
+        </div>
+
+        {/* Jersey Carousel */}
         <div className="relative h-96 flex items-center justify-center mb-16">
           {/* Jerseys */}
           {jerseys.map((jersey, index) => {
