@@ -15,7 +15,7 @@ const HeroSection = () => {
     {
       id: 2,
       name: "Arsenal",
-      image: "/lovable-uploads/d25ea2ba-ee83-43da-a6eb-4b0172df12cc.png"
+      image: "/lovable-uploads/20dcd5e2-e9e2-4b3e-92b6-653bf0810bf9.png"
     },
     {
       id: 3,
@@ -35,7 +35,7 @@ const HeroSection = () => {
     {
       id: 6,
       name: "Manchester United",
-      image: "/lovable-uploads/7b7af6ff-2249-44b0-b31f-13b082926b07.png"
+      image: "/lovable-uploads/f78ac3f9-cdcc-4b18-9fde-4c98d4925074.png"
     },
     {
       id: 7,
