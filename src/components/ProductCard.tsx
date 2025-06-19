@@ -62,7 +62,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
             />
           ) : (
             <div className="w-full h-80 bg-gradient-to-b from-luxury-gold/5 to-black/10 flex items-center justify-center border-2 border-dashed border-luxury-gold/30 rounded-lg">
-              <p className="text-luxury-champagne/50 font-inter text-sm">Image will be uploaded soon</p>
+              <div className="text-center">
+                <div className="w-20 h-20 bg-luxury-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-luxury-gold text-2xl">📷</span>
+                </div>
+                <p className="text-luxury-champagne/50 font-inter text-sm">Image will be uploaded soon</p>
+              </div>
             </div>
           )}
           

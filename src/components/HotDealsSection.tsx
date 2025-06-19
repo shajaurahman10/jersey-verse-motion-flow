@@ -5,8 +5,8 @@ const HotDealsSection = () => {
   const hotDeals = [
     {
       id: 1,
-      name: "Barcelona Retro Jersey",
-      image: "/lovable-uploads/9fb59c76-804f-46c6-9739-7ff58c4a9270.png",
+      name: "Manchester United Classic",
+      image: "/lovable-uploads/7b7af6ff-2249-44b0-b31f-13b082926b07.png",
       originalPrice: "₹4,999",
       salePrice: "₹2,999",
       discount: "40% OFF",
@@ -14,8 +14,8 @@ const HotDealsSection = () => {
     },
     {
       id: 2,
-      name: "Barcelona Home Kit",
-      image: "/lovable-uploads/b4ff8efa-b4e4-4a34-9683-7898a39783b8.png",
+      name: "Arsenal Away Kit",
+      image: "/lovable-uploads/b37476fc-3252-42b8-8a6a-23beb72e6a1d.png",
       originalPrice: "₹3,999",
       salePrice: "₹2,499",
       discount: "38% OFF",

@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
-  const [currentIndex, setCurrentIndex] = useState(2); // Start with middle jersey (index 2)
+  const [currentIndex, setCurrentIndex] = useState(2);
   
   const jerseys = [
     {
@@ -31,6 +31,26 @@ const HeroSection = () => {
       id: 5,
       name: "Barcelona",
       image: "/lovable-uploads/ef5cbf57-55c9-4611-9955-cb2f0aafdfd6.png"
+    },
+    {
+      id: 6,
+      name: "Manchester United",
+      image: "/lovable-uploads/7b7af6ff-2249-44b0-b31f-13b082926b07.png"
+    },
+    {
+      id: 7,
+      name: "Arsenal Away",
+      image: "/lovable-uploads/b37476fc-3252-42b8-8a6a-23beb72e6a1d.png"
+    },
+    {
+      id: 8,
+      name: "Manchester United Retro",
+      image: "/lovable-uploads/f7cd6e41-397e-49d2-8879-470e0004ff7a.png"
+    },
+    {
+      id: 9,
+      name: "Real Madrid Third",
+      image: "/lovable-uploads/dabb59d7-6d84-472d-a249-2ea06e4e6030.png"
     }
   ];
 
@@ -48,6 +68,10 @@ const HeroSection = () => {
     if (diff === 1 || diff === -(jerseys.length - 1)) return 'right';
     if (diff === -1 || diff === jerseys.length - 1) return 'left';
     return 'hidden';
+  };
+
+  const handleLinkClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -131,12 +155,14 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <Link 
               to="/collection"
+              onClick={handleLinkClick}
               className="bg-gradient-to-r from-luxury-gold to-luxury-champagne text-black px-12 py-5 rounded-lg font-semibold font-inter tracking-wider uppercase hover:scale-105 transition-all duration-500 luxury-glow text-lg"
             >
               View Collection
             </Link>
             <Link 
               to="/contact"
+              onClick={handleLinkClick}
               className="gold-border text-luxury-gold px-12 py-5 rounded-lg font-semibold font-inter tracking-wider uppercase hover:bg-luxury-gold/10 transition-all duration-500 text-lg"
             >
               Contact Us

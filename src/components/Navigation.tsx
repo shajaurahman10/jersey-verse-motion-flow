@@ -30,6 +30,11 @@ const Navigation = () => {
         : 'text-luxury-champagne hover:text-luxury-gold'
     }`;
 
+  const handleLinkClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsOpen(false);
+  };
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
       scrolled ? 'premium-glass gold-border border-t-0' : 'bg-transparent'
@@ -38,10 +43,10 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link to="/">
+            <Link to="/" onClick={handleLinkClick}>
               <img 
-                src="/lovable-uploads/ecf96001-d27b-44ca-94f3-2d9122363c98.png" 
-                alt="JERSEYSTWR" 
+                src="/lovable-uploads/86c5c0c2-3f66-4886-a49f-3de0de660e8e.png" 
+                alt="J90" 
                 className="h-10 w-auto filter brightness-0 invert animate-gold-shimmer"
               />
             </Link>
@@ -50,10 +55,10 @@ const Navigation = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-12">
-              <Link to="/" className={linkClass('/')}>Home</Link>
-              <Link to="/collection" className={linkClass('/collection')}>Collection</Link>
-              <Link to="/heritage" className={linkClass('/heritage')}>Heritage</Link>
-              <Link to="/contact" className={linkClass('/contact')}>Contact</Link>
+              <Link to="/" className={linkClass('/')} onClick={handleLinkClick}>Home</Link>
+              <Link to="/collection" className={linkClass('/collection')} onClick={handleLinkClick}>Collection</Link>
+              <Link to="/heritage" className={linkClass('/heritage')} onClick={handleLinkClick}>Heritage</Link>
+              <Link to="/contact" className={linkClass('/contact')} onClick={handleLinkClick}>Contact</Link>
             </div>
           </div>
 
@@ -83,10 +88,10 @@ const Navigation = () => {
         {isOpen && (
           <div className="md:hidden premium-glass gold-border rounded-lg mt-4 mb-4">
             <div className="px-4 pt-4 pb-6 space-y-4">
-              <Link to="/" className={`block px-4 py-3 ${linkClass('/')}`}>Home</Link>
-              <Link to="/collection" className={`block px-4 py-3 ${linkClass('/collection')}`}>Collection</Link>
-              <Link to="/heritage" className={`block px-4 py-3 ${linkClass('/heritage')}`}>Heritage</Link>
-              <Link to="/contact" className={`block px-4 py-3 ${linkClass('/contact')}`}>Contact</Link>
+              <Link to="/" className={`block px-4 py-3 ${linkClass('/')}`} onClick={handleLinkClick}>Home</Link>
+              <Link to="/collection" className={`block px-4 py-3 ${linkClass('/collection')}`} onClick={handleLinkClick}>Collection</Link>
+              <Link to="/heritage" className={`block px-4 py-3 ${linkClass('/heritage')}`} onClick={handleLinkClick}>Heritage</Link>
+              <Link to="/contact" className={`block px-4 py-3 ${linkClass('/contact')}`} onClick={handleLinkClick}>Contact</Link>
             </div>
           </div>
         )}
