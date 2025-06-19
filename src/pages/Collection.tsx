@@ -1,64 +1,191 @@
 
 import { useState, useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
 import ParticleBackground from '@/components/ParticleBackground';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import ProductCard from '@/components/ProductCard';
 import HotDealsSection from '@/components/HotDealsSection';
-import { Loader2 } from 'lucide-react';
 
 const Collection = () => {
-  const { data: products, isLoading, error } = useQuery({
-    queryKey: ['products'],
-    queryFn: async () => {
-      console.log('Fetching products from Supabase...');
-      const { data, error } = await supabase
-        .from('products')
-        .select(`
-          *,
-          product_images (
-            image_url,
-            alt_text,
-            is_primary,
-            sort_order
-          ),
-          categories (
-            name
-          )
-        `)
-        .eq('is_active', true)
-        .order('created_at', { ascending: false });
-      
-      if (error) {
-        console.error('Error fetching products:', error);
-        throw error;
-      }
-      
-      console.log('Products fetched:', data);
-      console.log('Number of products:', data?.length || 0);
-      return data;
+  // Mock products data based on your specifications
+  const mockProducts = [
+    {
+      id: "real-madrid-away-2025",
+      name: "Real Madrid Away Kit for 2025/26 Season",
+      price: 382,
+      compare_at_price: 420,
+      brand: "Real Madrid",
+      team: "Real Madrid",
+      season: "2025/26",
+      description: "Get ready to rep the Whites! ⚪️🔵 Real Madrid's 2025/26 away kit is now available! 🔥 Made from premium dotnet material with stunning sublimation quality, this jersey features intricate details that'll make you feel like a part of the Santiago Bernabéu squad.",
+      features: ["SUBLIMATION QUALITY", "DOTNET MATERIAL"],
+      product_images: [
+        {
+          image_url: "/lovable-uploads/dabb59d7-6d84-472d-a249-2ea06e4e6030.png",
+          alt_text: "Real Madrid Away Kit",
+          is_primary: true,
+          sort_order: 1
+        }
+      ],
+      categories: { name: "Football Jersey" }
     },
-  });
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen relative flex items-center justify-center">
-        <ParticleBackground />
-        <Navigation />
-        <div className="flex flex-col items-center gap-4">
-          <Loader2 className="h-12 w-12 animate-spin text-luxury-gold" />
-          <p className="text-luxury-champagne text-xl font-inter">Loading premium jerseys...</p>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
-
-  if (error) {
-    console.error('Collection page error:', error);
-  }
+    {
+      id: "frank-lampard-chelsea-retro",
+      name: "Frank Lampard Chelsea Retro Jersey",
+      price: 412,
+      compare_at_price: 450,
+      brand: "Chelsea",
+      team: "Chelsea",
+      season: "Retro",
+      description: "Get ready to rep the Blues! 🔵⚪️ Frank Lampard's iconic Chelsea retro jersey is back in stock! 🔥 Made from premium dotnet material with stunning sublimation quality.",
+      features: ["SUBLIMATION QUALITY", "DOTNET MATERIAL"],
+      product_images: [
+        {
+          image_url: "/lovable-uploads/dffcfe38-17b3-46b9-9694-1995b0e4688d.png",
+          alt_text: "Frank Lampard Chelsea Retro",
+          is_primary: true,
+          sort_order: 1
+        }
+      ],
+      categories: { name: "Retro Jersey" }
+    },
+    {
+      id: "argentina-2014-world-cup",
+      name: "Argentina 2014 World Cup Jersey",
+      price: 422,
+      brand: "Argentina",
+      team: "Argentina",
+      season: "2014 World Cup",
+      description: "Relive the glory of Argentina's 2014 World Cup campaign! ⚽️ Get your hands on the iconic jersey, featuring intricate embroidery logo details on premium dotnet material.",
+      features: ["EMBROIDERY LOGO", "DOTNET MATERIAL", "PREMIUM QUALITY"],
+      product_images: [
+        {
+          image_url: "/lovable-uploads/a4fb7c1a-b5a8-48e0-a989-27e953aaab7a.png",
+          alt_text: "Argentina 2014 World Cup",
+          is_primary: true,
+          sort_order: 1
+        }
+      ],
+      categories: { name: "World Cup Jersey" }
+    },
+    {
+      id: "messi-barca-retro",
+      name: "Leo Messi Barca Retro Five Sleeve Jersey",
+      price: 432,
+      brand: "Barcelona",
+      team: "Barcelona",
+      season: "Retro",
+      description: "Get ready to rep the GOAT! 🐐 Leo Messi's iconic Barcelona retro jersey is back in stock! 🔥 Made from premium dotnet material, this five-sleeve jersey features intricate details.",
+      features: ["DOTNET MATERIAL", "PREMIUM QUALITY"],
+      product_images: [
+        {
+          image_url: "/lovable-uploads/ec04093d-d2d2-4ab8-a3cf-34836006e8c5.png",
+          alt_text: "Messi Barcelona Retro",
+          is_primary: true,
+          sort_order: 1
+        }
+      ],
+      categories: { name: "Retro Jersey" }
+    },
+    {
+      id: "cannavaro-real-madrid",
+      name: "Cannavaro Retro Real Madrid Jersey",
+      price: 432,
+      brand: "Real Madrid",
+      team: "Real Madrid",
+      season: "Retro",
+      description: "Get ready to rep the legendary Cannavaro's iconic Real Madrid jersey! Made from premium dotnet material, this jersey features intricate embroidery logo details.",
+      features: ["EMBROIDERY LOGO", "DOTNET MATERIAL", "PREMIUM QUALITY"],
+      product_images: [],
+      categories: { name: "Retro Jersey" }
+    },
+    {
+      id: "vlahovic-juventus",
+      name: "Vlahovic New Season Juve Jersey",
+      price: 432,
+      brand: "Juventus",
+      team: "Juventus",
+      season: "New Season",
+      description: "Get ready to rep the Old Lady! ⚫️⚪️ Dusan Vlahovic's new season Juventus jersey is now available! 🔥 Made from premium dotnet material with intricate embroidery logo details.",
+      features: ["EMBROIDERY LOGO", "PREMIUM QUALITY", "DOTNET MATERIAL"],
+      product_images: [
+        {
+          image_url: "/lovable-uploads/7a8ec382-d90d-4c9b-a68e-4c09a0d923ba.png",
+          alt_text: "Vlahovic Juventus",
+          is_primary: true,
+          sort_order: 1
+        }
+      ],
+      categories: { name: "Football Jersey" }
+    },
+    {
+      id: "arsenal-new-season",
+      name: "Arsenal New Season Jersey",
+      price: 422,
+      brand: "Arsenal",
+      team: "Arsenal",
+      season: "New Season",
+      description: "Get ready to rep the Gunners! 🔴⚪️ Arsenal's new season jersey is now available! 🔥 Made from premium quality dotnet material with intricate embroidery logo details.",
+      features: ["EMBROIDERY LOGO", "PREMIUM QUALITY", "DOTNET MATERIAL"],
+      product_images: [
+        {
+          image_url: "/lovable-uploads/20dcd5e2-e9e2-4b3e-92b6-653bf0810bf9.png",
+          alt_text: "Arsenal New Season",
+          is_primary: true,
+          sort_order: 1
+        }
+      ],
+      categories: { name: "Football Jersey" }
+    },
+    {
+      id: "totti-italy",
+      name: "Totti Five Sleeve Jersey",
+      price: 432,
+      brand: "Italy",
+      team: "Italy",
+      season: "Classic",
+      description: "Get your hands on the iconic Francesco Totti Italy jersey! 🇮🇹⚽️ Made from premium dotnet material with stunning sublimation quality.",
+      features: ["SUBLIMATION QUALITY", "DOTNET MATERIAL"],
+      product_images: [],
+      categories: { name: "National Team" }
+    },
+    {
+      id: "travis-scott-barca",
+      name: "Travis Scott Barca Five Sleeve Jersey",
+      price: 442,
+      brand: "Barcelona",
+      team: "Barcelona",
+      season: "Special Edition",
+      description: "Get ready to rep Barcelona with Travis Scott's style! 🔵🟣 Travis Scott x Barca five-sleeve jersey available! 🔥 Made from premium dotnet material with stunning sublimation quality.",
+      features: ["DOTNET MATERIAL", "SUBLIMATION QUALITY"],
+      product_images: [],
+      categories: { name: "Special Edition" }
+    },
+    {
+      id: "travis-scott-black",
+      name: "Travis Scott Black Five Sleeve Jersey",
+      price: 432,
+      brand: "Travis Scott",
+      team: "Special",
+      season: "Limited",
+      description: "Cop the Travis Scott vibe! 🔥 Travis Scott's black five-sleeve jersey is in stock! 💀 Made from premium dotnet material with stunning sublimation quality.",
+      features: ["DOTNET MATERIAL", "SUBLIMATION QUALITY"],
+      product_images: [],
+      categories: { name: "Special Edition" }
+    },
+    {
+      id: "inter-miami-latest",
+      name: "Inter Miami Latest Jersey",
+      price: 372,
+      brand: "Inter Miami",
+      team: "Inter Miami",
+      season: "Latest",
+      description: "Get ready to rep Inter Miami in style! 🌴⚽️ Latest jersey available! 🔥 Made from premium dotnet material with stunning sublimation quality.",
+      features: ["DOTNET MATERIAL", "SUBLIMATION QUALITY"],
+      product_images: [],
+      categories: { name: "MLS Jersey" }
+    }
+  ];
 
   return (
     <div className="min-h-screen relative">
@@ -119,29 +246,16 @@ const Collection = () => {
           </section>
           
           {/* Product Grid */}
-          {products && products.length > 0 ? (
-            <>
-              <div className="text-center mb-8">
-                <p className="text-luxury-champagne/80 text-lg font-inter">
-                  Showing {products.length} premium jerseys
-                </p>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {products.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            </>
-          ) : (
-            <div className="text-center">
-              <div className="premium-glass gold-border rounded-2xl p-8">
-                <h2 className="text-3xl font-bold text-luxury-gold mb-4 font-inter">No Products Found</h2>
-                <p className="text-luxury-champagne/80 text-lg font-inter leading-relaxed">
-                  Our premium jersey collection is being updated. Please check back soon!
-                </p>
-              </div>
-            </div>
-          )}
+          <div className="text-center mb-8">
+            <p className="text-luxury-champagne/80 text-lg font-inter">
+              Showing {mockProducts.length} premium jerseys
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {mockProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
         </div>
       </section>
       

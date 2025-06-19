@@ -1,7 +1,8 @@
 
 import { useState } from 'react';
-import { Eye, ShoppingCart, Heart } from 'lucide-react';
+import { Eye, ShoppingCart, Heart, MessageCircle, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import ProductModal from './ProductModal';
 
 interface ProductCardProps {
@@ -14,6 +15,7 @@ interface ProductCardProps {
     team?: string;
     season?: string;
     description?: string;
+    features?: string[];
     product_images?: Array<{
       image_url: string;
       alt_text?: string;
@@ -50,18 +52,36 @@ const ProductCard = ({ product }: ProductCardProps) => {
     console.log('Wishlist toggle:', product.id);
   };
 
+  const handleCheckOut = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsModalOpen(true);
+  };
+
+  const handleWhatsAppOrder = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const message = `Hey J90! I would love to purchase Product ID: ${product.id} - ${product.name}`;
+    const whatsappUrl = `https://wa.me/918129913205?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
+  const handleInstagramOrder = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const instagramUrl = `https://www.instagram.com/j90_official`;
+    window.open(instagramUrl, '_blank');
+  };
+
   return (
     <>
-      <div className="premium-glass gold-border rounded-2xl overflow-hidden hover:scale-105 transition-all duration-500 group cursor-pointer">
+      <div className="premium-glass gold-border rounded-2xl overflow-hidden hover:scale-105 transition-all duration-500 group cursor-pointer bg-gradient-to-b from-black/80 to-black/90">
         <div className="relative">
           {primaryImage ? (
             <img 
               src={primaryImage.image_url} 
               alt={primaryImage.alt_text || product.name}
-              className="w-full h-80 object-contain bg-gradient-to-b from-transparent to-black/10"
+              className="w-full h-80 object-contain bg-gradient-to-b from-transparent to-black/10 p-4"
             />
           ) : (
-            <div className="w-full h-80 bg-gradient-to-b from-luxury-gold/5 to-black/10 flex items-center justify-center border-2 border-dashed border-luxury-gold/30 rounded-lg">
+            <div className="w-full h-80 bg-gradient-to-b from-luxury-gold/5 to-black/10 flex items-center justify-center border-2 border-dashed border-luxury-gold/30 rounded-lg m-4">
               <div className="text-center">
                 <div className="w-20 h-20 bg-luxury-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-luxury-gold text-2xl">📷</span>
@@ -73,13 +93,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
           
           {/* Action Buttons */}
           <div className="absolute top-4 right-4 flex flex-col gap-2">
-            <Button
-              onClick={() => setIsModalOpen(true)}
-              className="bg-luxury-gold text-black hover:bg-luxury-champagne transition-colors duration-300 p-2"
-              size="sm"
-            >
-              <Eye className="h-4 w-4" />
-            </Button>
             <Button
               onClick={handleWishlist}
               className={`transition-colors duration-300 p-2 ${
@@ -110,15 +123,19 @@ const ProductCard = ({ product }: ProductCardProps) => {
           )}
           
           {/* Product Name */}
-          <h3 className="text-luxury-gold font-black text-xl font-inter mb-3 uppercase tracking-wider line-clamp-2">
+          <h3 className="text-luxury-gold font-black text-lg font-inter mb-3 uppercase tracking-wider line-clamp-2">
             {product.name}
           </h3>
           
-          {/* Team/Season Info */}
-          {(product.team || product.season) && (
-            <p className="text-luxury-champagne/80 text-sm font-inter mb-3">
-              {[product.team, product.season].filter(Boolean).join(' • ')}
-            </p>
+          {/* Features */}
+          {product.features && product.features.length > 0 && (
+            <div className="mb-3">
+              {product.features.map((feature, index) => (
+                <Badge key={index} variant="outline" className="border-green-500 text-green-400 text-xs mr-2 mb-1">
+                  {feature}
+                </Badge>
+              ))}
+            </div>
           )}
           
           {/* Price */}
@@ -135,14 +152,45 @@ const ProductCard = ({ product }: ProductCardProps) => {
             </div>
           </div>
 
-          {/* Add to Cart Button */}
-          <Button
-            onClick={handleAddToCart}
-            className="w-full bg-luxury-gold text-black hover:bg-luxury-champagne transition-colors duration-300 font-bold font-inter text-sm uppercase tracking-wider"
-          >
-            <ShoppingCart className="h-4 w-4 mr-2" />
-            Add to Cart
-          </Button>
+          {/* Action Buttons */}
+          <div className="space-y-2">
+            {/* Check Out Button */}
+            <Button
+              onClick={handleCheckOut}
+              className="w-full bg-green-500 hover:bg-green-600 text-white font-bold font-inter text-sm uppercase tracking-wider"
+            >
+              CHECK OUT
+            </Button>
+
+            {/* Order Buttons Row */}
+            <div className="grid grid-cols-2 gap-2">
+              <Button
+                onClick={handleWhatsAppOrder}
+                className="bg-green-600 hover:bg-green-700 text-white font-bold font-inter text-xs uppercase"
+                size="sm"
+              >
+                <MessageCircle className="h-3 w-3 mr-1" />
+                WhatsApp
+              </Button>
+              <Button
+                onClick={handleInstagramOrder}
+                className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold font-inter text-xs uppercase"
+                size="sm"
+              >
+                <Instagram className="h-3 w-3 mr-1" />
+                Instagram
+              </Button>
+            </div>
+
+            {/* Add to Cart Button */}
+            <Button
+              onClick={handleAddToCart}
+              className="w-full bg-luxury-gold text-black hover:bg-luxury-champagne transition-colors duration-300 font-bold font-inter text-sm uppercase tracking-wider"
+            >
+              <ShoppingCart className="h-4 w-4 mr-2" />
+              Add to Cart
+            </Button>
+          </div>
         </div>
       </div>
 
