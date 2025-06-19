@@ -20,12 +20,57 @@ const Heritage = () => {
             </p>
           </div>
           
-          <div className="premium-glass rounded-2xl p-12 gold-border text-center">
-            <h2 className="text-3xl font-bold text-luxury-gold mb-6 font-inter">Craftsmanship Heritage</h2>
-            <p className="text-luxury-champagne/80 text-lg font-inter leading-relaxed">
-              Discover the story behind JERSEYSTWR and our commitment to bringing you 
-              the finest football jerseys with uncompromising quality and authenticity.
-            </p>
+          <div className="premium-glass rounded-2xl p-12 gold-border text-center max-w-4xl mx-auto">
+            <h2 className="text-4xl font-bold text-luxury-gold mb-8 font-orbitron uppercase tracking-wider">
+              Direct From Factory to Your Doorstep
+            </h2>
+            
+            <div className="space-y-8 text-left">
+              <div className="premium-glass rounded-xl p-6 border border-luxury-gold/30">
+                <h3 className="text-2xl font-bold text-luxury-gold mb-4 font-inter">Our Affiliate Program</h3>
+                <p className="text-luxury-champagne/90 text-lg font-inter leading-relaxed">
+                  J90 operates as a premium affiliate program that connects you directly with factory-fresh football jerseys. 
+                  We've established exclusive partnerships with top manufacturers to bring you authentic, high-quality jerseys 
+                  at unbeatable prices without any middleman markup.
+                </p>
+              </div>
+
+              <div className="premium-glass rounded-xl p-6 border border-luxury-gold/30">
+                <h3 className="text-2xl font-bold text-luxury-gold mb-4 font-inter">Factory Direct Collection</h3>
+                <p className="text-luxury-champagne/90 text-lg font-inter leading-relaxed">
+                  Every jersey in our collection is sourced directly from premium manufacturers. This means you get 
+                  the same quality as official stores but at a fraction of the cost. Our direct relationships ensure 
+                  authenticity, superior materials, and the latest designs from your favorite teams.
+                </p>
+              </div>
+
+              <div className="premium-glass rounded-xl p-6 border border-luxury-gold/30">
+                <h3 className="text-2xl font-bold text-luxury-gold mb-4 font-inter">All India Shipping</h3>
+                <p className="text-luxury-champagne/90 text-lg font-inter leading-relaxed">
+                  We ship across all of India with fast and secure delivery. From Kerala to Kashmir, from Mumbai to Manipur - 
+                  your premium jersey will reach you safely. We use trusted courier partners to ensure your order arrives 
+                  in perfect condition within 3-7 business days.
+                </p>
+              </div>
+
+              <div className="premium-glass rounded-xl p-6 border border-luxury-gold/30">
+                <h3 className="text-2xl font-bold text-luxury-gold mb-4 font-inter">Luxury Standards</h3>
+                <p className="text-luxury-champagne/90 text-lg font-inter leading-relaxed">
+                  At J90, we maintain the highest standards of quality and customer service. Each jersey features premium 
+                  materials like dotnet fabric, sublimation quality printing, and embroidered logos. We believe in providing 
+                  a luxury shopping experience that matches the premium quality of our products.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-12 text-center">
+              <p className="text-luxury-gold text-xl font-bold font-inter uppercase tracking-wider">
+                Experience the J90 Difference
+              </p>
+              <p className="text-luxury-champagne/80 text-lg font-inter mt-2">
+                Where passion meets premium quality
+              </p>
+            </div>
           </div>
         </div>
       </section>

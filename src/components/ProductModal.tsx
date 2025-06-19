@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ShoppingCart, Heart, ChevronLeft, ChevronRight, MessageCircle, Instagram, Globe, Upload } from 'lucide-react';
+import { ShoppingCart, Heart, MessageCircle, Instagram, Upload } from 'lucide-react';
 
 interface ProductModalProps {
   product: {
@@ -31,38 +31,56 @@ interface ProductModalProps {
 }
 
 const ProductModal = ({ product, isOpen, onClose }: ProductModalProps) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isWishlisted, setIsWishlisted] = useState(false);
-
-  const images = product.product_images?.sort((a, b) => a.sort_order - b.sort_order) || [];
-  const currentImage = images[currentImageIndex];
 
   const formatPrice = (price: number) => {
     return `₹${price.toLocaleString('en-IN')}`;
   };
 
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % images.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  const addToCart = () => {
+    const existingCart = JSON.parse(localStorage.getItem('j90_cart') || '[]');
+    const existingItem = existingCart.find((item: any) => item.id === product.id);
+    
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      existingCart.push({ ...product, quantity: 1 });
+    }
+    
+    localStorage.setItem('j90_cart', JSON.stringify(existingCart));
+    alert('Item added to cart!');
   };
 
   const handleWhatsAppOrder = () => {
-    const message = `Hey J90! I would love to purchase Product ID: ${product.id} - ${product.name}`;
+    const message = `Hey I just checkout your jerseys from J90 and i loved this jersey ${product.name} (ID: ${product.id}) i would like to order it 
+
+the details are according to the form
+-jersey size:
+-Name:
+-Address:
+-Pincode:
+-Phone Number:
+
+thank you for shopping with j90, A confirmation message will come to you within 24 hours from our team, much love j90`;
+    
     const whatsappUrl = `https://wa.me/918129913205?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
   const handleInstagramOrder = () => {
+    const message = `Hey I just checkout your jerseys from J90 and i loved this jersey ${product.name} (ID: ${product.id}) i would like to order it 
+
+the details are according to the form
+-jersey size:
+-Name:
+-Address:
+-Pincode:
+-Phone Number:
+
+thank you for shopping with j90, A confirmation message will come to you within 24 hours from our team, much love j90`;
+    
     const instagramUrl = `https://www.instagram.com/j90_official`;
     window.open(instagramUrl, '_blank');
-  };
-
-  const handleAddToCart = () => {
-    console.log('Adding to cart:', product.id);
-    alert('Item added to cart!');
   };
 
   return (
@@ -79,89 +97,25 @@ const ProductModal = ({ product, isOpen, onClose }: ProductModalProps) => {
           <div className="space-y-4">
             {/* Main Image Display */}
             <div className="relative min-h-[400px]">
-              {currentImage ? (
-                <div className="relative">
-                  <img
-                    src={currentImage.image_url}
-                    alt={currentImage.alt_text || product.name}
-                    className="w-full h-96 object-contain rounded-lg bg-gradient-to-b from-transparent to-black/10"
-                  />
-                  
-                  {/* Image Navigation */}
-                  {images.length > 1 && (
-                    <>
-                      <Button
-                        onClick={prevImage}
-                        className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-luxury-gold/80 hover:bg-luxury-gold text-black p-2"
-                        size="sm"
-                      >
-                        <ChevronLeft className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        onClick={nextImage}
-                        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-luxury-gold/80 hover:bg-luxury-gold text-black p-2"
-                        size="sm"
-                      >
-                        <ChevronRight className="h-4 w-4" />
-                      </Button>
-                    </>
-                  )}
-                </div>
-              ) : (
-                /* Placeholder for Multiple Images */
-                <div className="w-full h-96 bg-gradient-to-b from-luxury-gold/10 to-black/10 rounded-lg flex flex-col items-center justify-center border-2 border-dashed border-luxury-gold/30">
-                  <Upload className="h-16 w-16 text-luxury-gold/50 mb-4" />
-                  <p className="text-luxury-champagne/70 font-inter text-lg mb-2">Product Images</p>
-                  <p className="text-luxury-champagne/50 font-inter text-sm text-center px-4">
-                    Multiple product images will be displayed here.<br/>
-                    Upload images via VS Code as explained below.
-                  </p>
-                </div>
-              )}
+              <div className="w-full h-96 bg-gradient-to-b from-luxury-gold/10 to-black/10 rounded-lg flex flex-col items-center justify-center border-2 border-dashed border-luxury-gold/30">
+                <Upload className="h-16 w-16 text-luxury-gold/50 mb-4" />
+                <p className="text-luxury-champagne/70 font-inter text-lg mb-2">Product Images</p>
+                <p className="text-luxury-champagne/50 font-inter text-sm text-center px-4">
+                  Multiple product images will be displayed here
+                </p>
+              </div>
             </div>
 
             {/* Image Thumbnails Grid */}
             <div className="grid grid-cols-4 gap-2">
-              {images.length > 0 ? (
-                images.map((image, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentImageIndex(index)}
-                    className={`aspect-square rounded border-2 transition-all ${
-                      index === currentImageIndex 
-                        ? 'border-luxury-gold' 
-                        : 'border-luxury-champagne/30 hover:border-luxury-gold/50'
-                    }`}
-                  >
-                    <img
-                      src={image.image_url}
-                      alt={image.alt_text || `${product.name} ${index + 1}`}
-                      className="w-full h-full object-contain rounded"
-                    />
-                  </button>
-                ))
-              ) : (
-                /* Placeholder Thumbnails */
-                Array.from({ length: 4 }).map((_, index) => (
-                  <div
-                    key={index}
-                    className="aspect-square rounded border-2 border-dashed border-luxury-gold/20 bg-luxury-gold/5 flex items-center justify-center"
-                  >
-                    <Upload className="h-6 w-6 text-luxury-gold/30" />
-                  </div>
-                ))
-              )}
-            </div>
-
-            {/* Instructions for Adding Images */}
-            <div className="bg-luxury-gold/10 border border-luxury-gold/30 rounded-lg p-4 mt-4">
-              <h4 className="text-luxury-gold font-inter font-bold text-sm mb-2">📸 How to Add Product Images:</h4>
-              <ol className="text-luxury-champagne/80 font-inter text-xs space-y-1">
-                <li>1. Place images in the <code className="bg-black/30 px-1 rounded">public/lovable-uploads/</code> folder</li>
-                <li>2. Update the product data with image URLs</li>
-                <li>3. Set one image as <code className="bg-black/30 px-1 rounded">is_primary: true</code></li>
-                <li>4. Use <code className="bg-black/30 px-1 rounded">sort_order</code> to arrange images</li>
-              </ol>
+              {Array.from({ length: 4 }).map((_, index) => (
+                <div
+                  key={index}
+                  className="aspect-square rounded border-2 border-dashed border-luxury-gold/20 bg-luxury-gold/5 flex items-center justify-center"
+                >
+                  <Upload className="h-6 w-6 text-luxury-gold/30" />
+                </div>
+              ))}
             </div>
           </div>
 
@@ -247,7 +201,7 @@ const ProductModal = ({ product, isOpen, onClose }: ProductModalProps) => {
 
               {/* Add to Cart */}
               <Button
-                onClick={handleAddToCart}
+                onClick={addToCart}
                 className="w-full bg-luxury-gold hover:bg-luxury-champagne text-black font-bold font-inter py-3"
               >
                 <ShoppingCart className="h-5 w-5 mr-2" />

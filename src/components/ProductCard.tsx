@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Eye, ShoppingCart, Heart, MessageCircle, Instagram } from 'lucide-react';
+import { ShoppingCart, Heart, MessageCircle, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import ProductModal from './ProductModal';
@@ -32,18 +32,27 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isWishlisted, setIsWishlisted] = useState(false);
 
-  // Get primary image or first image
-  const primaryImage = product.product_images?.find(img => img.is_primary) 
-    || product.product_images?.[0];
-
   const formatPrice = (price: number) => {
     return `₹${price.toLocaleString('en-IN')}`;
   };
 
+  const addToCart = () => {
+    const existingCart = JSON.parse(localStorage.getItem('j90_cart') || '[]');
+    const existingItem = existingCart.find((item: any) => item.id === product.id);
+    
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      existingCart.push({ ...product, quantity: 1 });
+    }
+    
+    localStorage.setItem('j90_cart', JSON.stringify(existingCart));
+    console.log('Added to cart:', product.id);
+  };
+
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
-    console.log('Adding to cart:', product.id);
-    // Cart functionality will be implemented
+    addToCart();
   };
 
   const handleWishlist = (e: React.MouseEvent) => {
@@ -59,13 +68,34 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   const handleWhatsAppOrder = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const message = `Hey J90! I would love to purchase Product ID: ${product.id} - ${product.name}`;
+    const message = `Hey I just checkout your jerseys from J90 and i loved this jersey ${product.name} (ID: ${product.id}) i would like to order it 
+
+the details are according to the form
+-jersey size:
+-Name:
+-Address:
+-Pincode:
+-Phone Number:
+
+thank you for shopping with j90, A confirmation message will come to you within 24 hours from our team, much love j90`;
+    
     const whatsappUrl = `https://wa.me/918129913205?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
   const handleInstagramOrder = (e: React.MouseEvent) => {
     e.stopPropagation();
+    const message = `Hey I just checkout your jerseys from J90 and i loved this jersey ${product.name} (ID: ${product.id}) i would like to order it 
+
+the details are according to the form
+-jersey size:
+-Name:
+-Address:
+-Pincode:
+-Phone Number:
+
+thank you for shopping with j90, A confirmation message will come to you within 24 hours from our team, much love j90`;
+    
     const instagramUrl = `https://www.instagram.com/j90_official`;
     window.open(instagramUrl, '_blank');
   };
@@ -74,22 +104,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
     <>
       <div className="premium-glass gold-border rounded-2xl overflow-hidden hover:scale-105 transition-all duration-500 group cursor-pointer bg-gradient-to-b from-black/80 to-black/90">
         <div className="relative">
-          {primaryImage ? (
-            <img 
-              src={primaryImage.image_url} 
-              alt={primaryImage.alt_text || product.name}
-              className="w-full h-80 object-contain bg-gradient-to-b from-transparent to-black/10 p-4"
-            />
-          ) : (
-            <div className="w-full h-80 bg-gradient-to-b from-luxury-gold/5 to-black/10 flex items-center justify-center border-2 border-dashed border-luxury-gold/30 rounded-lg m-4">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-luxury-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-luxury-gold text-2xl">📷</span>
-                </div>
-                <p className="text-luxury-champagne/50 font-inter text-sm">Image will be uploaded soon</p>
+          <div className="w-full h-80 bg-gradient-to-b from-luxury-gold/5 to-black/10 flex items-center justify-center border-2 border-dashed border-luxury-gold/30 rounded-lg m-4">
+            <div className="text-center">
+              <div className="w-20 h-20 bg-luxury-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-luxury-gold text-2xl">📷</span>
               </div>
+              <p className="text-luxury-champagne/50 font-inter text-sm">Image will be uploaded soon</p>
             </div>
-          )}
+          </div>
           
           {/* Action Buttons */}
           <div className="absolute top-4 right-4 flex flex-col gap-2">
@@ -157,7 +179,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             {/* Check Out Button */}
             <Button
               onClick={handleCheckOut}
-              className="w-full bg-green-500 hover:bg-green-600 text-white font-bold font-inter text-sm uppercase tracking-wider"
+              className="w-full bg-luxury-gold hover:bg-luxury-champagne text-black font-bold font-inter text-sm uppercase tracking-wider"
             >
               CHECK OUT
             </Button>
@@ -185,7 +207,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             {/* Add to Cart Button */}
             <Button
               onClick={handleAddToCart}
-              className="w-full bg-luxury-gold text-black hover:bg-luxury-champagne transition-colors duration-300 font-bold font-inter text-sm uppercase tracking-wider"
+              className="w-full bg-black border border-luxury-gold text-luxury-gold hover:bg-luxury-gold hover:text-black transition-colors duration-300 font-bold font-inter text-sm uppercase tracking-wider"
             >
               <ShoppingCart className="h-4 w-4 mr-2" />
               Add to Cart

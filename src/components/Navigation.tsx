@@ -1,102 +1,122 @@
 
-import { useState, useEffect } from 'react';
-import { Menu, X, ShoppingBag, User } from 'lucide-react';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, ShoppingCart } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import Cart from './Cart';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const location = useLocation();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+  const navItems = [
+    { name: 'Home', path: '/' },
+    { name: 'Collection', path: '/collection' },
+    { name: 'Heritage', path: '/heritage' },
+    { name: 'Contact', path: '/contact' },
+  ];
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const isActive = (path: string) => {
-    if (path === '/' && location.pathname === '/') return true;
-    if (path !== '/' && location.pathname.startsWith(path)) return true;
-    return false;
-  };
-
-  const linkClass = (path: string) => 
-    `transition-colors duration-300 font-inter font-medium tracking-wider uppercase text-sm ${
-      isActive(path) 
-        ? 'text-luxury-gold' 
-        : 'text-luxury-champagne hover:text-luxury-gold'
-    }`;
-
-  const handleLinkClick = () => {
+  const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setIsOpen(false);
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-      scrolled ? 'premium-glass gold-border border-t-0' : 'bg-transparent'
-    }`}>
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <Link to="/" onClick={handleLinkClick}>
-              <img 
-                src="/lovable-uploads/86c5c0c2-3f66-4886-a49f-3de0de660e8e.png" 
-                alt="J90" 
-                className="h-10 w-auto filter brightness-0 invert animate-gold-shimmer"
-              />
+    <>
+      <nav className="fixed top-0 left-0 right-0 z-50 premium-glass backdrop-blur-md border-b border-luxury-gold/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-20">
+            {/* Logo */}
+            <Link 
+              to="/" 
+              onClick={scrollToTop}
+              className="flex items-center space-x-2 group"
+            >
+              <div className="w-12 h-12 bg-gradient-to-br from-luxury-gold to-luxury-champagne rounded-lg flex items-center justify-center font-orbitron font-black text-black text-xl group-hover:scale-110 transition-transform duration-300">
+                J90
+              </div>
+              <span className="font-orbitron text-2xl font-black luxury-text hidden sm:block">
+                J90
+              </span>
             </Link>
-          </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-12">
-              <Link to="/" className={linkClass('/')} onClick={handleLinkClick}>Home</Link>
-              <Link to="/collection" className={linkClass('/collection')} onClick={handleLinkClick}>Collection</Link>
-              <Link to="/heritage" className={linkClass('/heritage')} onClick={handleLinkClick}>Heritage</Link>
-              <Link to="/contact" className={linkClass('/contact')} onClick={handleLinkClick}>Contact</Link>
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-8">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  onClick={scrollToTop}
+                  className={`font-inter font-medium transition-colors duration-300 hover:text-luxury-gold ${
+                    location.pathname === item.path
+                      ? 'text-luxury-gold'
+                      : 'text-luxury-champagne'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              
+              {/* Cart Button */}
+              <Button
+                onClick={() => setIsCartOpen(true)}
+                className="bg-luxury-gold text-black hover:bg-luxury-champagne transition-colors duration-300 font-inter font-bold"
+                size="sm"
+              >
+                <ShoppingCart className="h-4 w-4 mr-2" />
+                Cart
+              </Button>
             </div>
-          </div>
 
-          {/* Right Side Actions */}
-          <div className="flex items-center space-x-6">
-            <button className="text-luxury-champagne hover:text-luxury-gold transition-colors duration-300">
-              <User className="h-6 w-6" />
-            </button>
-            <button className="text-luxury-champagne hover:text-luxury-gold transition-colors duration-300 relative">
-              <ShoppingBag className="h-6 w-6" />
-              <span className="absolute -top-2 -right-2 h-4 w-4 bg-luxury-gold text-black text-xs rounded-full flex items-center justify-center font-bold">0</span>
-            </button>
-            
             {/* Mobile menu button */}
-            <div className="md:hidden">
+            <div className="md:hidden flex items-center gap-2">
+              <Button
+                onClick={() => setIsCartOpen(true)}
+                className="bg-luxury-gold text-black hover:bg-luxury-champagne p-2"
+                size="sm"
+              >
+                <ShoppingCart className="h-4 w-4" />
+              </Button>
+              
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="text-luxury-champagne hover:text-luxury-gold transition-colors duration-300"
               >
-                {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                {isOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
             </div>
           </div>
-        </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden premium-glass gold-border rounded-lg mt-4 mb-4">
-            <div className="px-4 pt-4 pb-6 space-y-4">
-              <Link to="/" className={`block px-4 py-3 ${linkClass('/')}`} onClick={handleLinkClick}>Home</Link>
-              <Link to="/collection" className={`block px-4 py-3 ${linkClass('/collection')}`} onClick={handleLinkClick}>Collection</Link>
-              <Link to="/heritage" className={`block px-4 py-3 ${linkClass('/heritage')}`} onClick={handleLinkClick}>Heritage</Link>
-              <Link to="/contact" className={`block px-4 py-3 ${linkClass('/contact')}`} onClick={handleLinkClick}>Contact</Link>
+          {/* Mobile Navigation */}
+          {isOpen && (
+            <div className="md:hidden pb-6">
+              <div className="flex flex-col space-y-4">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.path}
+                    onClick={() => {
+                      setIsOpen(false);
+                      scrollToTop();
+                    }}
+                    className={`font-inter font-medium transition-colors duration-300 hover:text-luxury-gold ${
+                      location.pathname === item.path
+                        ? 'text-luxury-gold'
+                        : 'text-luxury-champagne'
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
-      </div>
-    </nav>
+          )}
+        </div>
+      </nav>
+
+      {/* Cart Component */}
+      <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+    </>
   );
 };
 
