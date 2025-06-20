@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import ParticleBackground from '@/components/ParticleBackground';
 import Navigation from '@/components/Navigation';
@@ -6,7 +7,7 @@ import ProductModal from '@/components/ProductModal';
 import Footer from '@/components/Footer';
 
 interface Product {
-  id: string; // Changed from number to string to match database schema
+  id: string;
   name: string;
   description: string;
   price: number;
@@ -30,7 +31,7 @@ const Collection = () => {
   // Mock products data - replace these image URLs with your actual jersey images
   const products: Product[] = [
     {
-      id: "1", // Changed from number to string
+      id: "1",
       name: "REAL MADRID AWAY KIT FOR 2025/26 SEASON",
       description: "Get ready to rep the Whites! ⚪️🔵 Real Madrid's 2025/26 away kit is now available! 🔥 Made from premium dotnet material with stunning sublimation quality, this jersey features intricate details that'll make you feel like a part of the Santiago Bernabéu squad.",
       price: 340,
@@ -44,7 +45,7 @@ const Collection = () => {
       ]
     },
     {
-      id: "2", // Changed from number to string
+      id: "2",
       name: "FRANK LAMPARD CHELSEA RETRO JERSEY",
       description: "Get ready to rep the Blues! 🔵⚪️ Frank Lampard's iconic Chelsea retro jersey is back in stock! 🔥 Made from premium dotnet material with stunning sublimation quality, this jersey features intricate details that'll make you feel like a part of Stamford Bridge squad.",
       price: 370,
@@ -200,23 +201,22 @@ const Collection = () => {
       <ParticleBackground />
       <Navigation />
       
-      <section className="pt-32 pb-20">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="text-center mb-16">
-            <h1 className="font-orbitron text-6xl md:text-8xl font-black luxury-text mb-8 animate-gold-shimmer tracking-[0.05em] uppercase">
+      <section className="pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-16 md:pb-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h1 className="font-orbitron text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black luxury-text mb-4 sm:mb-6 md:mb-8 animate-gold-shimmer tracking-[0.05em] uppercase">
               Collection
             </h1>
-            <p className="text-2xl text-luxury-champagne/90 mb-12 font-inter font-light tracking-[0.2em] uppercase">
+            <p className="text-lg sm:text-xl md:text-2xl text-luxury-champagne/90 mb-6 sm:mb-8 md:mb-12 font-inter font-light tracking-[0.1em] sm:tracking-[0.2em] uppercase">
               Premium Football Jerseys
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {products.map((product) => (
               <ProductCard 
                 key={product.id} 
-                product={product} 
-                onClick={() => handleProductClick(product)}
+                product={product}
               />
             ))}
           </div>
