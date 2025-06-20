@@ -6,7 +6,7 @@ import ProductModal from '@/components/ProductModal';
 import Footer from '@/components/Footer';
 
 interface Product {
-  id: number;
+  id: string; // Changed from number to string to match database schema
   name: string;
   description: string;
   price: number;
@@ -30,7 +30,7 @@ const Collection = () => {
   // Mock products data - replace these image URLs with your actual jersey images
   const products: Product[] = [
     {
-      id: 1,
+      id: "1", // Changed from number to string
       name: "REAL MADRID AWAY KIT FOR 2025/26 SEASON",
       description: "Get ready to rep the Whites! ⚪️🔵 Real Madrid's 2025/26 away kit is now available! 🔥 Made from premium dotnet material with stunning sublimation quality, this jersey features intricate details that'll make you feel like a part of the Santiago Bernabéu squad.",
       price: 340,
@@ -44,7 +44,7 @@ const Collection = () => {
       ]
     },
     {
-      id: 2,
+      id: "2", // Changed from number to string
       name: "FRANK LAMPARD CHELSEA RETRO JERSEY",
       description: "Get ready to rep the Blues! 🔵⚪️ Frank Lampard's iconic Chelsea retro jersey is back in stock! 🔥 Made from premium dotnet material with stunning sublimation quality, this jersey features intricate details that'll make you feel like a part of Stamford Bridge squad.",
       price: 370,
@@ -58,7 +58,7 @@ const Collection = () => {
       ]
     },
     {
-      id: 3,
+      id: "3",
       name: "ARGENTINA 2014 WORLD CUP JERSEY",
       description: "Relive the glory of Argentina's 2014 World Cup campaign! ⚽️ Get your hands on the iconic jersey, featuring intricate embroidery logo details on premium dotnet material. We've sourced this fantastic piece directly, ensuring you get the best quality at an unbeatable price.",
       price: 380,
@@ -72,7 +72,7 @@ const Collection = () => {
       ]
     },
     {
-      id: 4,
+      id: "4",
       name: "LEO MESSI BARCA RETRO FIVE SLEEVE JERSEY",
       description: "Get ready to rep the GOAT! 🐐 Leo Messi's iconic Barcelona retro jersey is back in stock! 🔥 We've got direct access to the best sources, ensuring you get premium quality at unbeatable prices. Made from premium dotnet material, this five-sleeve jersey features intricate details that'll make you feel like a part of the Camp Nou squad.",
       price: 390,
@@ -86,7 +86,7 @@ const Collection = () => {
       ]
     },
     {
-      id: 5,
+      id: "5",
       name: "CANNAVARO RETRO REAL MADRID JERSEY",
       description: "Get ready to rep the legendary Canavaro's iconic Real Madrid jersey! We've curated an exclusive retro jersey that's a must-have for any Madridista! By partnering directly with our trusted suppliers, we're able to bring you premium quality at unbeatable prices. Made from premium dotnet material, this jersey features intricate embroidery logo details that'll make you feel like a part of the Santiago Bernabéu squad.",
       price: 390,
@@ -100,7 +100,7 @@ const Collection = () => {
       ]
     },
     {
-      id: 6,
+      id: "6",
       name: "VLAHOVIC NEW SEASON JUVE JERSEY",
       description: "Get ready to rep the Old Lady! ⚫️⚪️ Dusan Vlahovic's new season Juventus jersey is now available! 🔥 Made from premium dotnet material with intricate embroidery logo details, you can rep your favorite players like Odegaard, Martinelli, and Rice.",
       price: 390,
@@ -114,7 +114,7 @@ const Collection = () => {
       ]
     },
     {
-      id: 7,
+      id: "7",
       name: "ARSenal NEW SEASON JERSEY",
       description: "Get ready to rep the Gunners! 🔴⚪️ Arsenal's new season jersey is now available! 🔥 Made from premium quality dotnet material with intricate embroidery logo details, you can rep your favorite players like Odegaard, Martinelli, and Rice.",
       price: 380,
@@ -128,7 +128,7 @@ const Collection = () => {
       ]
     },
     {
-      id: 8,
+      id: "8",
       name: "TOTTI FIVE SLEEVE JERSEY",
       description: "Get your hands on the iconic Francesco Totti Italy jersey! 🇮🇹⚽️ Made from premium dotnet material with stunning sublimation quality, this five-sleeve jersey features intricate details that'll make you feel like a part of Azzurri's glory days.",
       price: 390,
@@ -142,7 +142,7 @@ const Collection = () => {
       ]
     },
     {
-      id: 9,
+      id: "9",
       name: "TRAVIS SCOTT BARCA FIVE SLEEVE JERSEY",
       description: "Get ready to rep Barcelona with Travis Scott's style! 🔵🟣 Travis Scott x Barca five-sleeve jersey available! 🔥 Made from premium dotnet material with stunning sublimation quality.",
       price: 400,
@@ -156,7 +156,7 @@ const Collection = () => {
       ]
     },
     {
-      id: 10,
+      id: "10",
       name: "TRAVIS SCOTT BLACK FIVE SLEEVE JERSEY",
       description: "Cop the Travis Scott vibe! 🔥 Travis Scott's black five-sleeve jersey is in stock! 💀 Made from premium dotnet material with stunning sublimation quality.",
       price: 390,
@@ -170,7 +170,7 @@ const Collection = () => {
       ]
     },
     {
-      id: 11,
+      id: "11",
       name: "INTER MIAAMI LATEST JERSEY",
       description: "Get ready to rep Inter Miami in style! 🌴⚽️ Latest jersey available! 🔥 Made from premium dotnet material with stunning sublimation quality.",
       price: 330,
