@@ -1,6 +1,6 @@
-
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import FullScreenImageViewer from './FullScreenImageViewer';
 
 interface ProductImage {
   image_url: string;
@@ -16,6 +16,7 @@ interface ProductImageGalleryProps {
 
 const ProductImageGallery = ({ images, productName }: ProductImageGalleryProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isFullScreenOpen, setIsFullScreenOpen] = useState(false);
 
   // Sort images by sort_order
   const sortedImages = images?.sort((a, b) => a.sort_order - b.sort_order) || [];
@@ -27,6 +28,10 @@ const ProductImageGallery = ({ images, productName }: ProductImageGalleryProps) 
 
   const prevImage = () => {
     setCurrentImageIndex((prev) => (prev - 1 + sortedImages.length) % sortedImages.length);
+  };
+
+  const handleImageClick = () => {
+    setIsFullScreenOpen(true);
   };
 
   if (sortedImages.length === 0) {
@@ -46,69 +51,95 @@ const ProductImageGallery = ({ images, productName }: ProductImageGalleryProps) 
   }
 
   return (
-    <div className="space-y-4">
-      {/* Main Image Display */}
-      <div className="relative min-h-[400px]">
-        <div className="relative w-full h-96 bg-black/20 rounded-lg overflow-hidden">
-          <img 
-            src={currentImage.image_url} 
-            alt={currentImage.alt_text || productName}
-            className="w-full h-full object-cover"
-            onError={(e) => {
-              console.log('Image failed to load:', currentImage.image_url);
-            }}
-          />
-          
-          {/* Navigation arrows */}
-          {sortedImages.length > 1 && (
-            <>
-              <button
-                onClick={prevImage}
-                className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <button
-                onClick={nextImage}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
-            </>
-          )}
-          
-          {/* Image counter */}
-          {sortedImages.length > 1 && (
-            <div className="absolute bottom-2 right-2 bg-black/70 text-white px-2 py-1 rounded text-sm">
-              {currentImageIndex + 1} / {sortedImages.length}
+    <>
+      <div className="space-y-4">
+        {/* Main Image Display */}
+        <div className="relative min-h-[400px]">
+          <div 
+            className="relative w-full h-96 bg-black/20 rounded-lg overflow-hidden cursor-zoom-in"
+            onClick={handleImageClick}
+          >
+            <img 
+              src={currentImage.image_url} 
+              alt={currentImage.alt_text || productName}
+              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              style={{ imageRendering: 'high-quality' }}
+              onError={(e) => {
+                console.log('Image failed to load:', currentImage.image_url);
+              }}
+            />
+            
+            {/* Navigation arrows */}
+            {sortedImages.length > 1 && (
+              <>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    prevImage();
+                  }}
+                  className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    nextImage();
+                  }}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </>
+            )}
+            
+            {/* Image counter */}
+            {sortedImages.length > 1 && (
+              <div className="absolute bottom-2 right-2 bg-black/70 text-white px-2 py-1 rounded text-sm">
+                {currentImageIndex + 1} / {sortedImages.length}
+              </div>
+            )}
+
+            {/* Click to view full screen indicator */}
+            <div className="absolute bottom-2 left-2 bg-black/70 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+              Click for full view
             </div>
-          )}
+          </div>
         </div>
+
+        {/* Image Thumbnails Grid */}
+        {sortedImages.length > 1 && (
+          <div className="grid grid-cols-4 gap-2">
+            {sortedImages.map((image, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentImageIndex(index)}
+                className={`aspect-square rounded border-2 overflow-hidden transition-all ${
+                  currentImageIndex === index 
+                    ? 'border-luxury-gold shadow-lg' 
+                    : 'border-luxury-gold/20 hover:border-luxury-gold/50'
+                }`}
+              >
+                <img 
+                  src={image.image_url} 
+                  alt={image.alt_text || `${productName} ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Image Thumbnails Grid */}
-      {sortedImages.length > 1 && (
-        <div className="grid grid-cols-4 gap-2">
-          {sortedImages.map((image, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentImageIndex(index)}
-              className={`aspect-square rounded border-2 overflow-hidden transition-all ${
-                currentImageIndex === index 
-                  ? 'border-luxury-gold shadow-lg' 
-                  : 'border-luxury-gold/20 hover:border-luxury-gold/50'
-              }`}
-            >
-              <img 
-                src={image.image_url} 
-                alt={image.alt_text || `${productName} ${index + 1}`}
-                className="w-full h-full object-cover"
-              />
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
+      {/* Full Screen Image Viewer */}
+      <FullScreenImageViewer
+        images={sortedImages}
+        initialIndex={currentImageIndex}
+        isOpen={isFullScreenOpen}
+        onClose={() => setIsFullScreenOpen(false)}
+        productName={productName}
+      />
+    </>
   );
 };
 

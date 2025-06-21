@@ -1,9 +1,9 @@
-
 import { useState } from 'react';
 import { ShoppingCart, Heart, MessageCircle, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import ProductModal from './ProductModal';
+import FullScreenImageViewer from './FullScreenImageViewer';
 
 interface ProductCardProps {
   product: {
@@ -31,6 +31,7 @@ interface ProductCardProps {
 const ProductCard = ({ product }: ProductCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const [isImageViewerOpen, setIsImageViewerOpen] = useState(false);
 
   const formatPrice = (price: number) => {
     return `₹${price.toLocaleString('en-IN')}`;
@@ -100,6 +101,11 @@ thank you for shopping with j90, A confirmation message will come to you within 
     window.open(instagramUrl, '_blank');
   };
 
+  const handleImageClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsImageViewerOpen(true);
+  };
+
   // Get the primary image or first image
   const primaryImage = product.product_images?.find(img => img.is_primary) || product.product_images?.[0];
 
@@ -108,12 +114,15 @@ thank you for shopping with j90, A confirmation message will come to you within 
       <div className="premium-glass gold-border rounded-2xl overflow-hidden hover:scale-105 transition-all duration-500 group cursor-pointer bg-gradient-to-b from-black/80 to-black/90">
         <div className="relative">
           {/* Product Image */}
-          <div className="w-full h-80 bg-gradient-to-b from-luxury-gold/5 to-black/10 flex items-center justify-center overflow-hidden">
+          <div 
+            className="w-full h-80 bg-gradient-to-b from-luxury-gold/5 to-black/10 flex items-center justify-center overflow-hidden cursor-zoom-in"
+            onClick={handleImageClick}
+          >
             {primaryImage ? (
               <img 
                 src={primaryImage.image_url} 
                 alt={primaryImage.alt_text || product.name}
-                className="w-full h-full object-cover rounded-t-2xl"
+                className="w-full h-full object-cover rounded-t-2xl hover:scale-110 transition-transform duration-300"
                 onError={(e) => {
                   console.log('Image failed to load:', primaryImage.image_url);
                   e.currentTarget.style.display = 'none';
@@ -237,6 +246,15 @@ thank you for shopping with j90, A confirmation message will come to you within 
         product={product}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+      />
+
+      {/* Full Screen Image Viewer */}
+      <FullScreenImageViewer
+        images={product.product_images || []}
+        initialIndex={0}
+        isOpen={isImageViewerOpen}
+        onClose={() => setIsImageViewerOpen(false)}
+        productName={product.name}
       />
     </>
   );
