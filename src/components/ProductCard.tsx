@@ -100,17 +100,33 @@ thank you for shopping with j90, A confirmation message will come to you within 
     window.open(instagramUrl, '_blank');
   };
 
+  // Get the primary image or first image
+  const primaryImage = product.product_images?.find(img => img.is_primary) || product.product_images?.[0];
+
   return (
     <>
       <div className="premium-glass gold-border rounded-2xl overflow-hidden hover:scale-105 transition-all duration-500 group cursor-pointer bg-gradient-to-b from-black/80 to-black/90">
         <div className="relative">
-          <div className="w-full h-80 bg-gradient-to-b from-luxury-gold/5 to-black/10 flex items-center justify-center border-2 border-dashed border-luxury-gold/30 rounded-lg m-4">
-            <div className="text-center">
-              <div className="w-20 h-20 bg-luxury-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-luxury-gold text-2xl">📷</span>
+          {/* Product Image */}
+          <div className="w-full h-80 bg-gradient-to-b from-luxury-gold/5 to-black/10 flex items-center justify-center overflow-hidden">
+            {primaryImage ? (
+              <img 
+                src={primaryImage.image_url} 
+                alt={primaryImage.alt_text || product.name}
+                className="w-full h-full object-cover rounded-t-2xl"
+                onError={(e) => {
+                  console.log('Image failed to load:', primaryImage.image_url);
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+            ) : (
+              <div className="text-center">
+                <div className="w-20 h-20 bg-luxury-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-luxury-gold text-2xl">📷</span>
+                </div>
+                <p className="text-luxury-champagne/50 font-inter text-sm">No image available</p>
               </div>
-              <p className="text-luxury-champagne/50 font-inter text-sm">Image will be uploaded soon</p>
-            </div>
+            )}
           </div>
           
           {/* Action Buttons */}
