@@ -104,7 +104,6 @@ const FullScreenImageViewer = ({
           src={currentImage?.image_url} 
           alt={currentImage?.alt_text || productName}
           className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
-          style={{ imageRendering: 'high-quality' }}
         />
       </div>
 

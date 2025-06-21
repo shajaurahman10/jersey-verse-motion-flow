@@ -97,7 +97,8 @@ the details are according to the form
 
 thank you for shopping with j90, A confirmation message will come to you within 24 hours from our team, much love j90`;
     
-    const instagramUrl = `https://www.instagram.com/j90_official`;
+    // Open Instagram DM with pre-filled message
+    const instagramUrl = `https://www.instagram.com/direct/new/?text=${encodeURIComponent(message)}&recipient=j90kits`;
     window.open(instagramUrl, '_blank');
   };
 
@@ -225,7 +226,7 @@ thank you for shopping with j90, A confirmation message will come to you within 
                 size="sm"
               >
                 <Instagram className="h-3 w-3 mr-1" />
-                Instagram
+                Instagram DM
               </Button>
             </div>
 

@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import FullScreenImageViewer from './FullScreenImageViewer';
@@ -63,7 +64,6 @@ const ProductImageGallery = ({ images, productName }: ProductImageGalleryProps) 
               src={currentImage.image_url} 
               alt={currentImage.alt_text || productName}
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-              style={{ imageRendering: 'high-quality' }}
               onError={(e) => {
                 console.log('Image failed to load:', currentImage.image_url);
               }}

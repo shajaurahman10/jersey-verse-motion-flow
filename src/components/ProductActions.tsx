@@ -56,7 +56,8 @@ the details are according to the form
 
 thank you for shopping with j90, A confirmation message will come to you within 24 hours from our team, much love j90`;
     
-    const instagramUrl = `https://www.instagram.com/j90_official`;
+    // Open Instagram DM with pre-filled message
+    const instagramUrl = `https://www.instagram.com/direct/new/?text=${encodeURIComponent(message)}&recipient=j90kits`;
     window.open(instagramUrl, '_blank');
   };
 
@@ -79,7 +80,7 @@ thank you for shopping with j90, A confirmation message will come to you within 
         className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold font-inter py-3"
       >
         <Instagram className="h-5 w-5 mr-2" />
-        Order via Instagram
+        Order via Instagram DM
       </Button>
 
       {/* Add to Cart */}
