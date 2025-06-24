@@ -30,7 +30,7 @@ const HeroSection = () => {
     {
       id: 8,
       name: "Manchester United Classic",
-      image: "ChatGPT_Image_Jun_17__2025__11_45_10_PM-removebg-preview.png"
+      image: "public/ChatGPT_Image_Jun_17__2025__11_45_10_PM-removebg-preview.png"
     },
     {
       id: 9,
