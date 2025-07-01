@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ParticleBackground from '@/components/ParticleBackground';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -17,6 +17,14 @@ interface InstagramPost {
 
 const InstagramFeed = () => {
   const [posts, setPosts] = useState<InstagramPost[]>([]);
+
+  useEffect(() => {
+    // Load posts from localStorage
+    const savedPosts = localStorage.getItem('instagramPosts');
+    if (savedPosts) {
+      setPosts(JSON.parse(savedPosts));
+    }
+  }, []);
 
   return (
     <div className="min-h-screen relative">
