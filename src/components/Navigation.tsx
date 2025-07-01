@@ -1,120 +1,142 @@
-
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ShoppingCart } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import Cart from './Cart';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ShoppingCart } from 'lucide-react';
+import { Cart } from '@/components/Cart';
 
 const Navigation = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const location = useLocation();
 
-  const navItems = [
-    { name: 'Home', path: '/' },
-    { name: 'Collection', path: '/collection' },
-    { name: 'Heritage', path: '/heritage' },
-    { name: 'Contact', path: '/contact' },
-  ];
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const toggleCart = () => {
+    setIsCartOpen(!isCartOpen);
   };
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 premium-glass backdrop-blur-md border-b border-luxury-gold/20">
+      <nav className="fixed top-0 left-0 right-0 z-50 premium-glass gold-border-bottom">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            {/* Logo */}
-            <Link 
-              to="/" 
-              onClick={scrollToTop}
-              className="flex items-center space-x-2 group"
-            >
-              <img 
-                src="/lovable-uploads/ccff9549-08a2-46a9-95da-497da6a0fb4c.png" 
-                alt="J90 Logo" 
-                className="w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-300"
-              />
-            </Link>
-
+          <div className="flex justify-between items-center h-16 sm:h-20">
+            {/* Logo Section */}
+            <div className="flex items-center">
+              <Link to="/" className="flex items-center">
+                <img
+                  src="/j90_kits_logo.png"
+                  alt="J90 Kits Logo"
+                  className="h-8 sm:h-10"
+                />
+              </Link>
+            </div>
+            
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  onClick={scrollToTop}
-                  className={`font-inter font-medium transition-colors duration-300 hover:text-luxury-gold ${
-                    location.pathname === item.path
-                      ? 'text-luxury-gold'
-                      : 'text-luxury-champagne'
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              
+              <Link to="/" className="text-luxury-champagne hover:text-luxury-gold transition-colors font-inter font-medium tracking-wider uppercase">
+                Home
+              </Link>
+              <Link to="/collection" className="text-luxury-champagne hover:text-luxury-gold transition-colors font-inter font-medium tracking-wider uppercase">
+                Collection
+              </Link>
+              <Link to="/feed" className="text-luxury-champagne hover:text-luxury-gold transition-colors font-inter font-medium tracking-wider uppercase">
+                Feed
+              </Link>
+              <Link to="/heritage" className="text-luxury-champagne hover:text-luxury-gold transition-colors font-inter font-medium tracking-wider uppercase">
+                Heritage
+              </Link>
+              <Link to="/contact" className="text-luxury-champagne hover:text-luxury-gold transition-colors font-inter font-medium tracking-wider uppercase">
+                Contact
+              </Link>
               {/* Cart Button */}
-              <Button
-                onClick={() => setIsCartOpen(true)}
-                className="bg-luxury-gold text-black hover:bg-luxury-champagne transition-colors duration-300 font-inter font-bold"
-                size="sm"
+              <button
+                onClick={toggleCart}
+                className="text-luxury-champagne hover:text-luxury-gold transition-colors relative"
               >
-                <ShoppingCart className="h-4 w-4 mr-2" />
-                Cart
-              </Button>
+                <ShoppingCart className="h-6 w-6" />
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full px-2 text-xs font-bold">
+                  0
+                </span>
+              </button>
             </div>
 
-            {/* Mobile menu button */}
-            <div className="md:hidden flex items-center gap-2">
-              <Button
-                onClick={() => setIsCartOpen(true)}
-                className="bg-luxury-gold text-black hover:bg-luxury-champagne p-2"
-                size="sm"
-              >
-                <ShoppingCart className="h-4 w-4" />
-              </Button>
-              
+            {/* Mobile Menu Button */}
+            <div className="md:hidden">
               <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="text-luxury-champagne hover:text-luxury-gold transition-colors duration-300"
+                onClick={toggleMenu}
+                className="text-luxury-champagne hover:text-luxury-gold focus:outline-none"
               >
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
               </button>
             </div>
           </div>
-
-          {/* Mobile Navigation */}
-          {isOpen && (
-            <div className="md:hidden pb-6">
-              <div className="flex flex-col space-y-4">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    onClick={() => {
-                      setIsOpen(false);
-                      scrollToTop();
-                    }}
-                    className={`font-inter font-medium transition-colors duration-300 hover:text-luxury-gold ${
-                      location.pathname === item.path
-                        ? 'text-luxury-gold'
-                        : 'text-luxury-champagne'
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
-      </nav>
 
+        {/* Mobile Navigation Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden premium-glass border-t border-luxury-gold/20">
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              <Link 
+                to="/" 
+                className="block px-3 py-2 text-luxury-champagne hover:text-luxury-gold transition-colors font-inter font-medium tracking-wider uppercase"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Home
+              </Link>
+              <Link 
+                to="/collection" 
+                className="block px-3 py-2 text-luxury-champagne hover:text-luxury-gold transition-colors font-inter font-medium tracking-wider uppercase"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Collection
+              </Link>
+              <Link 
+                to="/feed" 
+                className="block px-3 py-2 text-luxury-champagne hover:text-luxury-gold transition-colors font-inter font-medium tracking-wider uppercase"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Feed
+              </Link>
+              <Link 
+                to="/heritage" 
+                className="block px-3 py-2 text-luxury-champagne hover:text-luxury-gold transition-colors font-inter font-medium tracking-wider uppercase"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Heritage
+              </Link>
+              <Link 
+                to="/contact" 
+                className="block px-3 py-2 text-luxury-champagne hover:text-luxury-gold transition-colors font-inter font-medium tracking-wider uppercase"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Contact
+              </Link>
+              {/* Cart Button */}
+              <button
+                onClick={toggleCart}
+                className="block px-3 py-2 text-luxury-champagne hover:text-luxury-gold transition-colors font-inter font-medium tracking-wider uppercase"
+              >
+                Cart
+              </button>
+            </div>
+          </div>
+        )}
+      </nav>
       {/* Cart Component */}
-      <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <Cart isOpen={isCartOpen} onClose={toggleCart} />
     </>
   );
 };
