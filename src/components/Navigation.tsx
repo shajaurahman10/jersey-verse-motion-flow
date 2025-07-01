@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart } from 'lucide-react';
-import { Cart } from '@/components/Cart';
+import Cart from '@/components/Cart';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
