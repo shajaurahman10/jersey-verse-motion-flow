@@ -4,7 +4,7 @@ import ParticleBackground from '@/components/ParticleBackground';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import InstagramFeedCard from '@/components/InstagramFeedCard';
-import { User } from 'lucide-react';
+import { ShoppingBag } from 'lucide-react';
 
 interface InstagramPost {
   id: string;
@@ -16,7 +16,7 @@ interface InstagramPost {
   tags: string[];
 }
 
-const InstagramFeed = () => {
+const Shop = () => {
   const [posts, setPosts] = useState<InstagramPost[]>([]);
 
   useEffect(() => {
@@ -37,10 +37,10 @@ const InstagramFeed = () => {
           {/* Header */}
           <div className="text-center mb-6 sm:mb-8 md:mb-12">
             <h1 className="font-orbitron text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black luxury-text mb-3 sm:mb-4 md:mb-6 animate-gold-shimmer tracking-[0.05em] uppercase">
-              J90 KITS FEED
+              J90 KITS SHOP
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-luxury-champagne/90 mb-4 sm:mb-6 font-inter font-light tracking-[0.1em] uppercase">
-              Instagram Style Product Feed
+              Premium Football Jerseys Collection
             </p>
           </div>
 
@@ -49,13 +49,13 @@ const InstagramFeed = () => {
             {posts.length === 0 ? (
               <div className="text-center py-12">
                 <div className="w-20 h-20 bg-luxury-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <User className="h-10 w-10 text-luxury-gold" />
+                  <ShoppingBag className="h-10 w-10 text-luxury-gold" />
                 </div>
                 <h3 className="text-luxury-gold font-orbitron text-2xl font-bold mb-2">
-                  No Posts Yet
+                  No Products Yet
                 </h3>
                 <p className="text-luxury-champagne/70 font-inter mb-6">
-                  New products will be posted here soon. Stay tuned for amazing deals!
+                  New products will be added to the shop soon. Stay tuned for amazing deals!
                 </p>
               </div>
             ) : (
@@ -74,4 +74,4 @@ const InstagramFeed = () => {
   );
 };
 
-export default InstagramFeed;
+export default Shop;

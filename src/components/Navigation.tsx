@@ -35,11 +35,8 @@ const Navigation = () => {
               <Link to="/" className="text-luxury-champagne hover:text-luxury-gold transition-colors font-inter font-medium tracking-wider uppercase">
                 Home
               </Link>
-              <Link to="/collection" className="text-luxury-champagne hover:text-luxury-gold transition-colors font-inter font-medium tracking-wider uppercase">
-                Collection
-              </Link>
-              <Link to="/feed" className="text-luxury-champagne hover:text-luxury-gold transition-colors font-inter font-medium tracking-wider uppercase">
-                Feed
+              <Link to="/shop" className="text-luxury-champagne hover:text-luxury-gold transition-colors font-inter font-medium tracking-wider uppercase">
+                Shop
               </Link>
               <Link to="/heritage" className="text-luxury-champagne hover:text-luxury-gold transition-colors font-inter font-medium tracking-wider uppercase">
                 Heritage
@@ -99,18 +96,11 @@ const Navigation = () => {
                 Home
               </Link>
               <Link 
-                to="/collection" 
+                to="/shop" 
                 className="block px-3 py-2 text-luxury-champagne hover:text-luxury-gold transition-colors font-inter font-medium tracking-wider uppercase"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Collection
-              </Link>
-              <Link 
-                to="/feed" 
-                className="block px-3 py-2 text-luxury-champagne hover:text-luxury-gold transition-colors font-inter font-medium tracking-wider uppercase"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Feed
+                Shop
               </Link>
               <Link 
                 to="/heritage" 
