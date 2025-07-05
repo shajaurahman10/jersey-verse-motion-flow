@@ -8,6 +8,7 @@ interface InstagramPost {
   images: string[];
   caption: string;
   price: number;
+  deliveryCharge: number;
   productName: string;
   tags: string[];
 }
@@ -27,8 +28,14 @@ const CollectionPostCard = ({ post }: CollectionPostCardProps) => {
     setCurrentImageIndex((prev) => (prev - 1 + post.images.length) % post.images.length);
   };
 
+  const totalPrice = post.price + (post.deliveryCharge || 0);
+
   const handleWhatsAppOrder = () => {
-    const message = `Hey! I'm interested in ordering "${post.productName}" for ₹${post.price.toLocaleString('en-IN')} from J90 Kits.
+    const message = `Hey! I'm interested in ordering "${post.productName}" from J90 Kits.
+
+Product Price: ₹${post.price.toLocaleString('en-IN')}
+Delivery Charge: ₹${(post.deliveryCharge || 0).toLocaleString('en-IN')}
+Total Price: ₹${totalPrice.toLocaleString('en-IN')}
 
 Please let me know:
 - Available sizes
@@ -104,9 +111,22 @@ Thank you!`;
           </div>
         )}
 
-        {/* Price */}
-        <div className="text-luxury-gold text-2xl font-black font-inter mb-4">
-          ₹{post.price.toLocaleString('en-IN')}
+        {/* Price Breakdown */}
+        <div className="bg-luxury-gold/10 rounded-lg p-3 mb-4">
+          <div className="text-luxury-champagne text-sm space-y-1">
+            <div className="flex justify-between">
+              <span>Product Price:</span>
+              <span className="text-luxury-gold">₹{post.price.toLocaleString('en-IN')}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Delivery Charge:</span>
+              <span className="text-luxury-gold">₹{(post.deliveryCharge || 0).toLocaleString('en-IN')}</span>
+            </div>
+            <div className="flex justify-between font-bold text-base border-t border-luxury-gold/30 pt-1">
+              <span>Total Price:</span>
+              <span className="text-luxury-gold">₹{totalPrice.toLocaleString('en-IN')}</span>
+            </div>
+          </div>
         </div>
 
         {/* Buy Button */}

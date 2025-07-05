@@ -12,6 +12,7 @@ interface InstagramPost {
   images: string[];
   caption: string;
   price: number;
+  deliveryCharge: number;
   productName: string;
   tags: string[];
 }
@@ -24,6 +25,7 @@ const InstagramPostCreator = ({ onPostCreated }: InstagramPostCreatorProps) => {
   const [images, setImages] = useState<string[]>([]);
   const [caption, setCaption] = useState('');
   const [price, setPrice] = useState('');
+  const [deliveryCharge, setDeliveryCharge] = useState('');
   const [productName, setProductName] = useState('');
   const [tags, setTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState('');
@@ -60,7 +62,7 @@ const InstagramPostCreator = ({ onPostCreated }: InstagramPostCreatorProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (images.length === 0 || !caption || !price || !productName) {
+    if (images.length === 0 || !caption || !price || !productName || !deliveryCharge) {
       alert('Please fill in all required fields and upload at least one image');
       return;
     }
@@ -70,6 +72,7 @@ const InstagramPostCreator = ({ onPostCreated }: InstagramPostCreatorProps) => {
       images,
       caption,
       price: parseFloat(price),
+      deliveryCharge: parseFloat(deliveryCharge),
       productName,
       tags
     };
@@ -80,10 +83,13 @@ const InstagramPostCreator = ({ onPostCreated }: InstagramPostCreatorProps) => {
     setImages([]);
     setCaption('');
     setPrice('');
+    setDeliveryCharge('');
     setProductName('');
     setTags([]);
     setNewTag('');
   };
+
+  const totalPrice = (parseFloat(price) || 0) + (parseFloat(deliveryCharge) || 0);
 
   return (
     <Card className="premium-glass gold-border max-w-2xl mx-auto">
@@ -171,18 +177,54 @@ const InstagramPostCreator = ({ onPostCreated }: InstagramPostCreatorProps) => {
           {/* Price */}
           <div>
             <Label htmlFor="price" className="text-luxury-champagne font-inter text-lg">
-              Price (₹) *
+              Product Price (₹) *
             </Label>
             <Input
               id="price"
               type="number"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-              placeholder="Enter price..."
+              placeholder="Enter product price..."
               className="mt-2 bg-black/20 border-luxury-gold/30 text-luxury-champagne"
               required
             />
           </div>
+
+          {/* Delivery Charge */}
+          <div>
+            <Label htmlFor="deliveryCharge" className="text-luxury-champagne font-inter text-lg">
+              Delivery Charge (₹) *
+            </Label>
+            <Input
+              id="deliveryCharge"
+              type="number"
+              value={deliveryCharge}
+              onChange={(e) => setDeliveryCharge(e.target.value)}
+              placeholder="Enter delivery charge..."
+              className="mt-2 bg-black/20 border-luxury-gold/30 text-luxury-champagne"
+              required
+            />
+          </div>
+
+          {/* Total Price Display */}
+          {(price || deliveryCharge) && (
+            <div className="bg-luxury-gold/10 border border-luxury-gold/30 rounded-lg p-4">
+              <div className="text-luxury-gold font-inter">
+                <div className="flex justify-between mb-2">
+                  <span>Product Price:</span>
+                  <span>₹{(parseFloat(price) || 0).toLocaleString('en-IN')}</span>
+                </div>
+                <div className="flex justify-between mb-2">
+                  <span>Delivery Charge:</span>
+                  <span>₹{(parseFloat(deliveryCharge) || 0).toLocaleString('en-IN')}</span>
+                </div>
+                <div className="flex justify-between font-bold text-lg border-t border-luxury-gold/30 pt-2">
+                  <span>Total Price:</span>
+                  <span>₹{totalPrice.toLocaleString('en-IN')}</span>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Tags */}
           <div>

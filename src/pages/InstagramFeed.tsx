@@ -11,6 +11,7 @@ interface InstagramPost {
   images: string[];
   caption: string;
   price: number;
+  deliveryCharge: number;
   productName: string;
   tags: string[];
 }

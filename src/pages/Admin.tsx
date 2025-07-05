@@ -14,6 +14,7 @@ interface InstagramPost {
   images: string[];
   caption: string;
   price: number;
+  deliveryCharge: number;
   productName: string;
   tags: string[];
 }
@@ -64,6 +65,11 @@ const Admin = () => {
     setPosts(updatedPosts);
     localStorage.setItem('instagramPosts', JSON.stringify(updatedPosts));
   };
+
+  // Calculate total value including delivery charges
+  const totalProductValue = posts.reduce((acc, post) => acc + post.price, 0);
+  const totalDeliveryValue = posts.reduce((acc, post) => acc + (post.deliveryCharge || 0), 0);
+  const totalValue = totalProductValue + totalDeliveryValue;
 
   if (!isLoggedIn) {
     return (
@@ -168,7 +174,7 @@ const Admin = () => {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <div className="premium-glass gold-border rounded-xl p-6 text-center">
               <div className="text-3xl font-bold text-luxury-gold mb-2">{posts.length}</div>
               <div className="text-luxury-champagne font-inter">Total Posts</div>
@@ -181,7 +187,13 @@ const Admin = () => {
             </div>
             <div className="premium-glass gold-border rounded-xl p-6 text-center">
               <div className="text-3xl font-bold text-luxury-gold mb-2">
-                ₹{posts.reduce((acc, post) => acc + post.price, 0).toLocaleString('en-IN')}
+                ₹{totalProductValue.toLocaleString('en-IN')}
+              </div>
+              <div className="text-luxury-champagne font-inter">Product Value</div>
+            </div>
+            <div className="premium-glass gold-border rounded-xl p-6 text-center">
+              <div className="text-3xl font-bold text-luxury-gold mb-2">
+                ₹{totalValue.toLocaleString('en-IN')}
               </div>
               <div className="text-luxury-champagne font-inter">Total Value</div>
             </div>
