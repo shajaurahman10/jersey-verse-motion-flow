@@ -1,6 +1,7 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, User } from 'lucide-react';
 import Cart from '@/components/Cart';
 
 const Navigation = () => {
@@ -23,11 +24,9 @@ const Navigation = () => {
             {/* Logo Section */}
             <div className="flex items-center">
               <Link to="/" className="flex items-center">
-                <img
-                  src="/j90_kits_logo.png"
-                  alt="J90 Kits Logo"
-                  className="h-8 sm:h-10"
-                />
+                <div className="text-luxury-gold font-orbitron text-xl sm:text-2xl font-black tracking-wider">
+                  J90 KITS
+                </div>
               </Link>
             </div>
             
@@ -47,6 +46,9 @@ const Navigation = () => {
               </Link>
               <Link to="/contact" className="text-luxury-champagne hover:text-luxury-gold transition-colors font-inter font-medium tracking-wider uppercase">
                 Contact
+              </Link>
+              <Link to="/admin" className="text-luxury-gold hover:text-luxury-champagne transition-colors font-inter font-medium tracking-wider uppercase border border-luxury-gold px-3 py-1 rounded">
+                Admin Panel
               </Link>
               {/* Cart Button */}
               <button
@@ -124,10 +126,18 @@ const Navigation = () => {
               >
                 Contact
               </Link>
+              <Link 
+                to="/admin" 
+                className="block px-3 py-2 text-luxury-gold hover:text-luxury-champagne transition-colors font-inter font-medium tracking-wider uppercase border border-luxury-gold mx-3 rounded text-center"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <User className="h-4 w-4 inline mr-2" />
+                Admin Panel
+              </Link>
               {/* Cart Button */}
               <button
                 onClick={toggleCart}
-                className="block px-3 py-2 text-luxury-champagne hover:text-luxury-gold transition-colors font-inter font-medium tracking-wider uppercase"
+                className="block px-3 py-2 text-luxury-champagne hover:text-luxury-gold transition-colors font-inter font-medium tracking-wider uppercase w-full text-left"
               >
                 Cart
               </button>
