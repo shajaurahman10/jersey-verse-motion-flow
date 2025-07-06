@@ -1,7 +1,6 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Heart, MessageCircle, Share, MoreHorizontal, ChevronLeft, ChevronRight, Package } from 'lucide-react';
+import { Heart, MessageCircle, Share, MoreHorizontal, ChevronLeft, ChevronRight, Package, ShoppingCart } from 'lucide-react';
 
 interface InstagramPost {
   id: string;
@@ -18,10 +17,11 @@ interface InstagramFeedCardProps {
   post: InstagramPost;
   isAdmin?: boolean;
   onStockToggle?: (postId: string, currentStock: boolean) => void;
+  onAddToCart?: (post: InstagramPost) => void;
   isDesktop?: boolean;
 }
 
-const InstagramFeedCard = ({ post, isAdmin = false, onStockToggle, isDesktop = false }: InstagramFeedCardProps) => {
+const InstagramFeedCard = ({ post, isAdmin = false, onStockToggle, onAddToCart, isDesktop = false }: InstagramFeedCardProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
   const [showFullCaption, setShowFullCaption] = useState(false);
@@ -65,6 +65,12 @@ Thank you!`;
   const handleStockToggle = () => {
     if (isAdmin && onStockToggle) {
       onStockToggle(post.id, post.inStock);
+    }
+  };
+
+  const handleAddToCart = () => {
+    if (onAddToCart && post.inStock) {
+      onAddToCart(post);
     }
   };
 
@@ -217,8 +223,23 @@ Thank you!`;
         )}
       </div>
 
-      {/* Buy Button */}
-      <div className="p-3 pt-0">
+      {/* Action Buttons */}
+      <div className="p-3 pt-0 space-y-2">
+        {/* Add to Cart Button */}
+        <Button
+          onClick={handleAddToCart}
+          disabled={!post.inStock}
+          className={`w-full font-bold font-inter ${isDesktop ? 'py-2 text-sm' : 'py-3 text-lg'} ${
+            post.inStock 
+              ? 'bg-luxury-gold hover:bg-luxury-champagne text-black' 
+              : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+          }`}
+        >
+          <ShoppingCart className={`${isDesktop ? 'h-4 w-4' : 'h-5 w-5'} mr-2`} />
+          {post.inStock ? 'Add to Cart' : 'Out of Stock'}
+        </Button>
+
+        {/* WhatsApp Order Button */}
         <Button
           onClick={handleWhatsAppOrder}
           disabled={!post.inStock}

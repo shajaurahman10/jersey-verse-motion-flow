@@ -1,10 +1,13 @@
+
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import ParticleBackground from '@/components/ParticleBackground';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import InstagramFeedCard from '@/components/InstagramFeedCard';
-import { ShoppingBag } from 'lucide-react';
+import Cart from '@/components/Cart';
+import { ShoppingBag, ShoppingCart } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 
 interface InstagramPost {
@@ -20,12 +23,23 @@ interface InstagramPost {
 
 const Shop = () => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [cartItemsCount, setCartItemsCount] = useState(0);
 
   useEffect(() => {
     // Check if user is admin
     const adminLoggedIn = localStorage.getItem('adminLoggedIn');
     setIsAdmin(adminLoggedIn === 'true');
+    
+    // Update cart count
+    updateCartCount();
   }, []);
+
+  const updateCartCount = () => {
+    const cart = JSON.parse(localStorage.getItem('j90_cart') || '[]');
+    const totalItems = cart.reduce((total: number, item: any) => total + item.quantity, 0);
+    setCartItemsCount(totalItems);
+  };
 
   const { data: posts = [], isLoading, error, refetch } = useQuery({
     queryKey: ['instagram-posts'],
@@ -72,6 +86,28 @@ const Shop = () => {
     }
   };
 
+  const handleAddToCart = (post: InstagramPost) => {
+    if (!post.inStock) return;
+    
+    const existingCart = JSON.parse(localStorage.getItem('j90_cart') || '[]');
+    const existingItem = existingCart.find((item: any) => item.id === post.id);
+    
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      existingCart.push({ 
+        id: post.id,
+        name: post.productName,
+        price: post.price + post.deliveryCharge,
+        quantity: 1,
+        image: post.images[0]
+      });
+    }
+    
+    localStorage.setItem('j90_cart', JSON.stringify(existingCart));
+    updateCartCount();
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen relative">
@@ -106,6 +142,21 @@ const Shop = () => {
     <div className="min-h-screen relative">
       <ParticleBackground />
       <Navigation />
+      
+      {/* Cart Button */}
+      <div className="fixed top-20 right-4 z-50">
+        <Button
+          onClick={() => setIsCartOpen(true)}
+          className="bg-luxury-gold hover:bg-luxury-champagne text-black font-bold p-3 rounded-full shadow-lg"
+        >
+          <ShoppingCart className="h-6 w-6" />
+          {cartItemsCount > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+              {cartItemsCount}
+            </span>
+          )}
+        </Button>
+      </div>
       
       <section className="pt-16 sm:pt-20 md:pt-24 lg:pt-32 pb-8 sm:pb-12 md:pb-16 lg:pb-20">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
@@ -144,6 +195,7 @@ const Shop = () => {
                         post={post} 
                         isAdmin={isAdmin}
                         onStockToggle={handleStockToggle}
+                        onAddToCart={handleAddToCart}
                       />
                     ))}
                   </div>
@@ -158,6 +210,7 @@ const Shop = () => {
                         post={post} 
                         isAdmin={isAdmin}
                         onStockToggle={handleStockToggle}
+                        onAddToCart={handleAddToCart}
                         isDesktop={true}
                       />
                     ))}
@@ -170,6 +223,15 @@ const Shop = () => {
       </section>
 
       <Footer />
+      
+      {/* Cart Modal */}
+      <Cart 
+        isOpen={isCartOpen} 
+        onClose={() => {
+          setIsCartOpen(false);
+          updateCartCount();
+        }} 
+      />
     </div>
   );
 };
