@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import ParticleBackground from '@/components/ParticleBackground';
@@ -50,7 +49,7 @@ const Shop = () => {
         deliveryCharge: post.delivery_charge,
         productName: post.product_name,
         tags: post.tags || [],
-        inStock: post.in_stock !== false // Default to true if not set
+        inStock: post.in_stock
       }));
     }
   });

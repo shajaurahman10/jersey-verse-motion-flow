@@ -55,6 +55,7 @@ export type Database = {
           delivery_charge: number
           id: string
           images: string[]
+          in_stock: boolean
           price: number
           product_name: string
           tags: string[] | null
@@ -66,6 +67,7 @@ export type Database = {
           delivery_charge?: number
           id?: string
           images: string[]
+          in_stock?: boolean
           price: number
           product_name: string
           tags?: string[] | null
@@ -77,6 +79,7 @@ export type Database = {
           delivery_charge?: number
           id?: string
           images?: string[]
+          in_stock?: boolean
           price?: number
           product_name?: string
           tags?: string[] | null
