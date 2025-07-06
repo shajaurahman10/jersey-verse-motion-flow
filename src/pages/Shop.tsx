@@ -16,10 +16,19 @@ interface InstagramPost {
   deliveryCharge: number;
   productName: string;
   tags: string[];
+  inStock: boolean;
 }
 
 const Shop = () => {
-  const { data: posts = [], isLoading, error } = useQuery({
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    // Check if user is admin
+    const adminLoggedIn = localStorage.getItem('adminLoggedIn');
+    setIsAdmin(adminLoggedIn === 'true');
+  }, []);
+
+  const { data: posts = [], isLoading, error, refetch } = useQuery({
     queryKey: ['instagram-posts'],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -40,10 +49,29 @@ const Shop = () => {
         price: post.price,
         deliveryCharge: post.delivery_charge,
         productName: post.product_name,
-        tags: post.tags || []
+        tags: post.tags || [],
+        inStock: post.in_stock !== false // Default to true if not set
       }));
     }
   });
+
+  const handleStockToggle = async (postId: string, currentStock: boolean) => {
+    if (!isAdmin) return;
+    
+    try {
+      const { error } = await supabase
+        .from('instagram_posts')
+        .update({ in_stock: !currentStock })
+        .eq('id', postId);
+      
+      if (error) throw error;
+      
+      // Refetch posts to update the UI
+      refetch();
+    } catch (error) {
+      console.error('Error updating stock:', error);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -51,7 +79,7 @@ const Shop = () => {
         <ParticleBackground />
         <Navigation />
         <section className="pt-32 pb-20">
-          <div className="max-w-4xl mx-auto px-8 text-center">
+          <div className="max-w-7xl mx-auto px-8 text-center">
             <div className="text-luxury-gold font-orbitron text-2xl">Loading posts...</div>
           </div>
         </section>
@@ -66,7 +94,7 @@ const Shop = () => {
         <ParticleBackground />
         <Navigation />
         <section className="pt-32 pb-20">
-          <div className="max-w-4xl mx-auto px-8 text-center">
+          <div className="max-w-7xl mx-auto px-8 text-center">
             <div className="text-red-400 font-orbitron text-2xl">Error loading posts</div>
           </div>
         </section>
@@ -81,7 +109,7 @@ const Shop = () => {
       <Navigation />
       
       <section className="pt-16 sm:pt-20 md:pt-24 lg:pt-32 pb-8 sm:pb-12 md:pb-16 lg:pb-20">
-        <div className="max-w-4xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-6 sm:mb-8 md:mb-12">
             <h1 className="font-orbitron text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black luxury-text mb-3 sm:mb-4 md:mb-6 animate-gold-shimmer tracking-[0.05em] uppercase">
@@ -107,11 +135,36 @@ const Shop = () => {
                 </p>
               </div>
             ) : (
-              <div className="grid gap-8">
-                {posts.map((post) => (
-                  <InstagramFeedCard key={post.id} post={post} />
-                ))}
-              </div>
+              <>
+                {/* Mobile Layout - Vertical Stack */}
+                <div className="block md:hidden">
+                  <div className="grid gap-8">
+                    {posts.map((post) => (
+                      <InstagramFeedCard 
+                        key={post.id} 
+                        post={post} 
+                        isAdmin={isAdmin}
+                        onStockToggle={handleStockToggle}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Desktop Layout - Horizontal Grid */}
+                <div className="hidden md:block">
+                  <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {posts.map((post) => (
+                      <InstagramFeedCard 
+                        key={post.id} 
+                        post={post} 
+                        isAdmin={isAdmin}
+                        onStockToggle={handleStockToggle}
+                        isDesktop={true}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </>
             )}
           </div>
         </div>
