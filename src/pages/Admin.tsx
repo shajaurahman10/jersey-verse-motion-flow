@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -8,6 +9,7 @@ import ParticleBackground from '@/components/ParticleBackground';
 import Navigation from '@/components/Navigation';
 import InstagramPostCreator from '@/components/InstagramPostCreator';
 import { Lock, User, LogOut } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 interface InstagramPost {
   id: string;
@@ -24,20 +26,40 @@ const Admin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [posts, setPosts] = useState<InstagramPost[]>([]);
   const navigate = useNavigate();
+
+  const { data: posts = [], refetch } = useQuery({
+    queryKey: ['admin-instagram-posts'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('instagram_posts')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (error) {
+        console.error('Error fetching posts:', error);
+        throw error;
+      }
+      
+      // Transform the data to match our interface
+      return data.map(post => ({
+        id: post.id,
+        images: post.images,
+        caption: post.caption,
+        price: post.price,
+        deliveryCharge: post.delivery_charge,
+        productName: post.product_name,
+        tags: post.tags || []
+      }));
+    },
+    enabled: isLoggedIn
+  });
 
   useEffect(() => {
     // Check if admin is already logged in
     const adminLoggedIn = localStorage.getItem('adminLoggedIn');
     if (adminLoggedIn === 'true') {
       setIsLoggedIn(true);
-    }
-
-    // Load existing posts from localStorage
-    const savedPosts = localStorage.getItem('instagramPosts');
-    if (savedPosts) {
-      setPosts(JSON.parse(savedPosts));
     }
   }, []);
 
@@ -60,10 +82,9 @@ const Admin = () => {
     setPassword('');
   };
 
-  const handlePostCreated = (newPost: InstagramPost) => {
-    const updatedPosts = [newPost, ...posts];
-    setPosts(updatedPosts);
-    localStorage.setItem('instagramPosts', JSON.stringify(updatedPosts));
+  const handlePostCreated = () => {
+    // Refetch posts when a new post is created
+    refetch();
   };
 
   // Calculate total value including delivery charges

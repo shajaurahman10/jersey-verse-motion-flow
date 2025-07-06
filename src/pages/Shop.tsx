@@ -1,10 +1,12 @@
 
 import { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import ParticleBackground from '@/components/ParticleBackground';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import InstagramFeedCard from '@/components/InstagramFeedCard';
 import { ShoppingBag } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 interface InstagramPost {
   id: string;
@@ -17,15 +19,61 @@ interface InstagramPost {
 }
 
 const Shop = () => {
-  const [posts, setPosts] = useState<InstagramPost[]>([]);
-
-  useEffect(() => {
-    // Load posts from localStorage
-    const savedPosts = localStorage.getItem('instagramPosts');
-    if (savedPosts) {
-      setPosts(JSON.parse(savedPosts));
+  const { data: posts = [], isLoading, error } = useQuery({
+    queryKey: ['instagram-posts'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('instagram_posts')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (error) {
+        console.error('Error fetching posts:', error);
+        throw error;
+      }
+      
+      // Transform the data to match our interface
+      return data.map(post => ({
+        id: post.id,
+        images: post.images,
+        caption: post.caption,
+        price: post.price,
+        deliveryCharge: post.delivery_charge,
+        productName: post.product_name,
+        tags: post.tags || []
+      }));
     }
-  }, []);
+  });
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen relative">
+        <ParticleBackground />
+        <Navigation />
+        <section className="pt-32 pb-20">
+          <div className="max-w-4xl mx-auto px-8 text-center">
+            <div className="text-luxury-gold font-orbitron text-2xl">Loading posts...</div>
+          </div>
+        </section>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen relative">
+        <ParticleBackground />
+        <Navigation />
+        <section className="pt-32 pb-20">
+          <div className="max-w-4xl mx-auto px-8 text-center">
+            <div className="text-red-400 font-orbitron text-2xl">Error loading posts</div>
+          </div>
+        </section>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen relative">

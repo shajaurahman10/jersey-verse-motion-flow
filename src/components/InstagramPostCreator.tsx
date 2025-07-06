@@ -6,19 +6,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Upload, X, Plus } from 'lucide-react';
-
-interface InstagramPost {
-  id: string;
-  images: string[];
-  caption: string;
-  price: number;
-  deliveryCharge: number;
-  productName: string;
-  tags: string[];
-}
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/components/ui/use-toast';
 
 interface InstagramPostCreatorProps {
-  onPostCreated: (post: InstagramPost) => void;
+  onPostCreated: () => void;
 }
 
 const InstagramPostCreator = ({ onPostCreated }: InstagramPostCreatorProps) => {
@@ -29,6 +21,8 @@ const InstagramPostCreator = ({ onPostCreated }: InstagramPostCreatorProps) => {
   const [productName, setProductName] = useState('');
   const [tags, setTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -60,33 +54,65 @@ const InstagramPostCreator = ({ onPostCreated }: InstagramPostCreatorProps) => {
     setTags(prev => prev.filter(tag => tag !== tagToRemove));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (images.length === 0 || !caption || !price || !productName || !deliveryCharge) {
-      alert('Please fill in all required fields and upload at least one image');
+      toast({
+        title: "Error",
+        description: "Please fill in all required fields and upload at least one image",
+        variant: "destructive"
+      });
       return;
     }
 
-    const newPost: InstagramPost = {
-      id: Date.now().toString(),
-      images,
-      caption,
-      price: parseFloat(price),
-      deliveryCharge: parseFloat(deliveryCharge),
-      productName,
-      tags
-    };
+    setIsSubmitting(true);
 
-    onPostCreated(newPost);
-    
-    // Reset form
-    setImages([]);
-    setCaption('');
-    setPrice('');
-    setDeliveryCharge('');
-    setProductName('');
-    setTags([]);
-    setNewTag('');
+    try {
+      const { data, error } = await supabase
+        .from('instagram_posts')
+        .insert({
+          images,
+          caption,
+          price: parseFloat(price),
+          delivery_charge: parseFloat(deliveryCharge),
+          product_name: productName,
+          tags
+        })
+        .select()
+        .single();
+
+      if (error) {
+        console.error('Error creating post:', error);
+        throw error;
+      }
+
+      toast({
+        title: "Success!",
+        description: "Post created successfully and is now visible to everyone worldwide!",
+      });
+
+      // Reset form
+      setImages([]);
+      setCaption('');
+      setPrice('');
+      setDeliveryCharge('');
+      setProductName('');
+      setTags([]);
+      setNewTag('');
+      
+      // Notify parent component
+      onPostCreated();
+
+    } catch (error) {
+      console.error('Error creating post:', error);
+      toast({
+        title: "Error",
+        description: "Failed to create post. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const totalPrice = (parseFloat(price) || 0) + (parseFloat(deliveryCharge) || 0);
@@ -269,9 +295,10 @@ const InstagramPostCreator = ({ onPostCreated }: InstagramPostCreatorProps) => {
 
           <Button
             type="submit"
+            disabled={isSubmitting}
             className="w-full bg-luxury-gold text-black hover:bg-luxury-champagne font-bold text-lg py-3"
           >
-            Create Post
+            {isSubmitting ? 'Creating Post...' : 'Create Post'}
           </Button>
         </form>
       </CardContent>

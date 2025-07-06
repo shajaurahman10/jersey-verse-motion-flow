@@ -48,6 +48,42 @@ export type Database = {
         }
         Relationships: []
       }
+      instagram_posts: {
+        Row: {
+          caption: string
+          created_at: string
+          delivery_charge: number
+          id: string
+          images: string[]
+          price: number
+          product_name: string
+          tags: string[] | null
+          updated_at: string
+        }
+        Insert: {
+          caption: string
+          created_at?: string
+          delivery_charge?: number
+          id?: string
+          images: string[]
+          price: number
+          product_name: string
+          tags?: string[] | null
+          updated_at?: string
+        }
+        Update: {
+          caption?: string
+          created_at?: string
+          delivery_charge?: number
+          id?: string
+          images?: string[]
+          price?: number
+          product_name?: string
+          tags?: string[] | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       jerseys: {
         Row: {
           created_at: string
