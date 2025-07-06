@@ -5,10 +5,12 @@ import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ParticleBackground from '@/components/ParticleBackground';
 import Navigation from '@/components/Navigation';
 import InstagramPostCreator from '@/components/InstagramPostCreator';
-import { Lock, User, LogOut } from 'lucide-react';
+import AdminPostsManager from '@/components/AdminPostsManager';
+import { Lock, User, LogOut, Plus, Settings } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 
 interface InstagramPost {
@@ -168,7 +170,7 @@ const Admin = () => {
       <Navigation />
       
       <section className="pt-16 sm:pt-20 md:pt-24 lg:pt-32 pb-8 sm:pb-12 md:pb-16 lg:pb-20">
-        <div className="max-w-4xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-6 sm:mb-8 md:mb-12">
             <div className="flex items-center justify-center gap-4 mb-4">
@@ -220,8 +222,33 @@ const Admin = () => {
             </div>
           </div>
 
-          {/* Post Creator */}
-          <InstagramPostCreator onPostCreated={handlePostCreated} />
+          {/* Admin Tabs */}
+          <Tabs defaultValue="create" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 bg-black/50 border border-luxury-gold/30">
+              <TabsTrigger 
+                value="create" 
+                className="data-[state=active]:bg-luxury-gold data-[state=active]:text-black text-luxury-champagne"
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Create Post
+              </TabsTrigger>
+              <TabsTrigger 
+                value="manage" 
+                className="data-[state=active]:bg-luxury-gold data-[state=active]:text-black text-luxury-champagne"
+              >
+                <Settings className="h-4 w-4 mr-2" />
+                Manage Posts
+              </TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="create" className="mt-6">
+              <InstagramPostCreator onPostCreated={handlePostCreated} />
+            </TabsContent>
+            
+            <TabsContent value="manage" className="mt-6">
+              <AdminPostsManager />
+            </TabsContent>
+          </Tabs>
         </div>
       </section>
     </div>
